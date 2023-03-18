@@ -2,7 +2,7 @@
 
 import { View, Text, FlatList, StyleSheet, Pressable, TextInput, TouchableOpacity, Keyboard } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { firebase ,auth} from '../config';
+import { firebase ,auth} from '../../config';
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
@@ -76,8 +76,7 @@ const Home = () => {
                 .then(() => {
                     // release todo state
                     setAddData('');
-                    // release keyboard
-              
+                    // release keyboard              
                     Keyboard.dismiss();
                     alert("New Todo Added Successfully ");
                 })

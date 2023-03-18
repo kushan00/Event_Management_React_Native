@@ -1,13 +1,16 @@
 import {FunctionComponent, useEffect, useState} from "react";
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {auth} from "../config";
+import { firebase ,auth} from '../../config';
 import { useNavigation } from '@react-navigation/native';
+import { getData, storeData } from '../AsyncStorage/Storage';
 
 const  LoginScreen = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigation = useNavigation();
+
+    const userRef = firebase.firestore().collection('users');
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -24,8 +27,8 @@ const  LoginScreen = () => {
             .createUserWithEmailAndPassword(email, password)
             .then(userCreds => {
                 const user = userCreds.user;
-                console.log('ed with: ', user?.email);
-                navigation.navigate("Home");
+                addUser(user);
+                //console.log('ed with: ', user?.email);
             })
             .catch(error => alert(error.message))
 
@@ -36,12 +39,52 @@ const  LoginScreen = () => {
             .signInWithEmailAndPassword(email, password)
             .then(userCrds => {
                 const user = userCrds.user;
-                console.log('LoggedIn with: ', user?.email);
-                navigation.navigate("Home");
-        
+                console.log('Logged user: ', user);
+                userRef
+                    .orderBy('createdAt', 'desc')
+                    .onSnapshot( 
+                        querySnapshot => {
+                        querySnapshot.forEach((doc) => {
+                            const {heading} = doc.data()
+                            const user2 = heading;
+                            console.log("user details",user2.email , user?.email);
+                            if(user2.email == user?.email)
+                            {
+                                storeData("token", user?.email);
+                                navigation.navigate("Home");
+                            }
+                            else
+                            {
+                                alert("User Not Found");
+                            }
+                        })
+                    })        
             })
             .catch(error => alert(error.message))
     };
+
+    const addUser = (user) => {
+    console.log("user",user.email);
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    const data = {
+        heading: {
+            email: user.email,
+            name:user.email.substring(0,email.length - 8)
+        },
+        createdAt: timestamp
+    };
+    userRef
+        .add(data)
+        .then(() => {
+            // release keyboard              
+            alert("New User Register Successfully ");
+            navigation.navigate("LoginScreen");
+        })
+        .catch((error) => {
+            // show an alert in case of error
+            alert(error);
+        })
+    }
 
 
     return (
