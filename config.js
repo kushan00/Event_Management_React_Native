@@ -2,15 +2,15 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyAskZptCbPprWTMCWpWuDoRGFb7Y-Vd8WM",
-//     authDomain: "it20278144lab04.firebaseapp.com",
-//     projectId: "it20278144lab04",
-//     storageBucket: "it20278144lab04.appspot.com",
-//     messagingSenderId: "1035944649508",
-//     appId: "1:1035944649508:web:8474e71585bd0b57cbc9b1",
-//     measurementId: "G-6MC288WBYY"
-//   };
+const firebaseConfig = {
+    apiKey: "AIzaSyCo2Q8cwL6-bDPLA-QTWamB4ZPbjc70KdU",
+    authDomain: "eventmangementreactnative.firebaseapp.com",
+    projectId: "eventmangementreactnative",
+    storageBucket: "eventmangementreactnative.appspot.com",
+    messagingSenderId: "885338744889",
+    appId: "1:885338744889:web:f6e26359e1de49f47fc5e8",
+    measurementId: "G-4TWH1C9YGH"
+  };
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
