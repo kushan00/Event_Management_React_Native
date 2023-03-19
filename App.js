@@ -11,6 +11,7 @@ import SplashScreen from './Screen/CommonScreens/SplashScreen';
 import EventHomeScreen from './Screen/EventPlan/EventHome';
 import Detail from './Screen/UpdateToDoList';
 import LoginScreen from "./Screen/Auth/Login";
+import RegisterScreen from './Screen/Auth/Register';
 
 
 const Stack = createStackNavigator()
@@ -43,6 +44,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Spalsh" >
         <Stack.Screen name='Spalsh' component={SplashScreen} options={{ headerShown: false }}/>
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false  }}/> 
+        <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false  }}/> 
         <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }}/>   
         <Stack.Screen name='Detail'component={Detail} />
       </Stack.Navigator>
