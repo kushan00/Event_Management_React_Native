@@ -12,16 +12,6 @@ const  LoginScreen = () => {
 
     const userRef = firebase.firestore().collection('users');
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            if (user) {
-                navigation("Home")
-            }
-        })
-
-        return unsubscribe
-    }, [])
-
     const handleSignUp = () => {
         auth
             .createUserWithEmailAndPassword(email, password)
@@ -100,7 +90,7 @@ const  LoginScreen = () => {
         marginTop: "35%",
         marginBottom: "5%"
       }}>
-        ToDo App
+        Event Management
       </Text>
             <View
                 style={styles.inputContainer}

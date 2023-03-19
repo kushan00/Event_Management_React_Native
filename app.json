@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "firebaseToDo",
-    "slug": "firebaseToDo",
+    "name": "eventManagement",
+    "slug": "eventManagement",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

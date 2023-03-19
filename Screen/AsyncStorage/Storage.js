@@ -15,10 +15,10 @@ export async function getData(key) {
   try {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
-      console.log(`Data with key '${key}' successfully retrieved.`);
+      console.log(`Data with key '${key}' successfully retrieved. ${value}`);
       return value;
     } else {
-      console.log(`No data found with key '${key}'.`);
+      console.log(`No data found with key '${key}' ${value}.`);
       return null;
     }
   } catch (error) {
