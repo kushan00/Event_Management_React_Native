@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text,ScrollView, TouchableOpacity, StyleSheet , Image } from 'react-native';
-import {  removeData } from '../AsyncStorage/Storage';
 import { useNavigation } from '@react-navigation/native';
 
 const events = [
@@ -37,19 +36,8 @@ const EventHomeScreen = () => {
       //navigation.navigate('EventDetails', { event });
     };
 
-    const signOut = async () => {
-      await removeData("token");
-      navigation.navigate('LoginScreen');
-    }
   return (
     <View style={styles.container}>
-    <View style={styles.appBar}>
-      <Image source={require('../../assets/favicon.png')} style={styles.logo} />
-      <Text style={styles.appName}>Event Planner</Text>
-      <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
-        <Text style={styles.signOutButtonText}>Sign Out</Text>
-      </TouchableOpacity>
-    </View>
     <View style={styles.eventContainer}>
       <ScrollView>
         {events.map((event) => (
@@ -86,42 +74,10 @@ const EventHomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-      },
-      appBar: {
-        backgroundColor: '#4285F4',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        height: 56,
-        top:40
-      },
-      logo: {
-        width: 24,
-        height: 24,
-      },
-      appName: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 16,
-      },
-      signOutButton: {
-        backgroundColor: '#DB4437',
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 4,
-      },
-      signOutButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-      },
-        signOutButtonText: {
-            color: '#fff',
-            fontWeight: 'bold',
+        container: {
+          flex: 1,
+          backgroundColor: '#fff',
+          top:50
         },
         mainContainer: {
             flex: 1,
@@ -138,7 +94,6 @@ const styles = StyleSheet.create({
             borderWidth: 1,
             borderColor: '#ccc',
             height:600,
-            top:40
         },
         eventTitle: {
             fontWeight: 'bold',

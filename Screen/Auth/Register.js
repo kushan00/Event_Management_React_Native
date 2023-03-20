@@ -1,52 +1,59 @@
-import { useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import { firebase ,auth} from '../../config';
 import { useNavigation } from '@react-navigation/native';
-import { storeData } from '../AsyncStorage/Storage';
+import { getData, storeData } from '../AsyncStorage/Storage';
 
-const  LoginScreen = () => {
+const  RegisterScreen = () => {
 
     const [email, setEmail] = useState('');
+    const [name, setname] = useState('');
+    const [mobile, setmobile] = useState('');
     const [password, setPassword] = useState('');
+
     const navigation = useNavigation();
 
     const userRef = firebase.firestore().collection('users');
 
- 
-    const handleRegisterPage = ()=>{
-        navigation.navigate("RegisterScreen");
+    const handleLoginPage = ()=>{
+        navigation.navigate("LoginScreen");
     }
 
-    const handleLogin = () => {
+    const handleSignUp = () => {
         auth
-            .signInWithEmailAndPassword(email, password)
-            .then(userCrds => {
-                const user = userCrds.user;
-                console.log('Logged user: ', user);
-                userRef
-                    .orderBy('createdAt', 'desc')
-                    .onSnapshot( 
-                        querySnapshot => {
-                        querySnapshot.forEach((doc) => {
-                            const {heading} = doc.data()
-                            const user2 = heading;
-                            console.log("user details",user2.email , user?.email);
-                            if(user2.email == user?.email)
-                            {
-                                storeData("token", user?.email);
-                                navigation.navigate("Home");
-                            }
-                            else
-                            {
-                                alert("User Not Found");
-                            }
-                        })
-                    })        
+            .createUserWithEmailAndPassword(email, password)
+            .then(userCreds => {
+                const user = userCreds.user;
+                addUser(user);
+                //console.log('ed with: ', user?.email);
             })
             .catch(error => alert(error.message))
+    }
+
+
+    const addUser = (user) => {
+    console.log("user",user.email);
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    const data = {
+        heading: {
+            email: user.email,
+            name: name,
+            mobile: mobile
+        },
+        createdAt: timestamp
     };
-
-
+    userRef
+        .add(data)
+        .then(() => {
+            // release keyboard              
+            alert("New User Register Successfully ");
+            navigation.navigate("LoginScreen");
+        })
+        .catch((error) => {
+            // show an alert in case of error
+            alert(error);
+        })
+    }
 
 
     return (
@@ -69,6 +76,18 @@ const  LoginScreen = () => {
             >
                 
                 <TextInput
+                    placeholder={'Name'}
+                    style={styles.input}
+                    value={name}
+                    onChangeText={text => setname(text)}
+                ></TextInput>
+                <TextInput
+                    placeholder={'Mobile'}
+                    style={styles.input}
+                    value={mobile}                
+                    onChangeText={text => setmobile(text)}
+                ></TextInput>
+                <TextInput
                     placeholder={'Email'}
                     style={styles.input}
                     value={email}
@@ -85,23 +104,22 @@ const  LoginScreen = () => {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={handleLogin}
-                    style={styles.button}
+                    onPress={handleSignUp}
+                    style={[styles.button, styles.buttonOutline]}
                 >
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonOutlineText2}>Register</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity
-                    onPress={handleRegisterPage}                  
+                    onPress={handleLoginPage}               
                 >
-                    <Text style={styles.buttonOutlineText}>Dont  have an account? Register</Text>
+                    <Text style={styles.buttonOutlineText}>Already have an account? Login</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
         );
 }
 
-export default LoginScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -142,6 +160,12 @@ const styles = StyleSheet.create({
     buttonOutlineText: {
         top:40,
         color: 'black',
+        fontWeight: '700',
+        fontSize: 16,
+        
+    },
+    buttonOutlineText2: {
+        color: 'white',
         fontWeight: '700',
         fontSize: 16,
         
