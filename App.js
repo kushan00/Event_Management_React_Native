@@ -23,6 +23,8 @@ import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
 //guest list management
 import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
+import GuestListHome from './Screen/GuestList_Management/GuestListHome';
+import AddGuestList from './Screen/GuestList_Management/AddGuestList';
 
 const Stack = createStackNavigator()
 
@@ -78,9 +80,12 @@ export default function App() {
         <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
 
 
-        <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/>
+        {/* <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/> */}
 
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
+        <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
+        <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

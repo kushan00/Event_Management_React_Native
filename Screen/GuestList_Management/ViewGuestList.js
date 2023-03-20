@@ -81,7 +81,7 @@ const handleDeleteGuest = () => {
       elevation: 4,
       marginTop: 46,
     },
-    packageName: {
+    guestData: {
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 8,
@@ -135,19 +135,19 @@ const handleDeleteGuest = () => {
           style={styles.packageBox}
           onTouchEnd={() => setSelectedGuest(guest)}
         >
-          <Text style={styles.packageName}>{guest.guestName}</Text>
-          <Text style={styles.packageDescription}>{guest.guestEmail}</Text>
-          <Text style={styles.packagePrice}>Rs. {guest.guestMobileNumber}</Text>
-          <Text style={styles.packageName}>{guest.guestAge}</Text>
-          <Text style={styles.packageDescription}>{guest.guestNic}</Text>
-          <Text style={styles.packagePrice}>Rs. {guest.guestGender}</Text>
+          <Text style={styles.guestData}>{guest.guestName}</Text>
+          <Text style={styles.guestData}>{guest.guestEmail}</Text>
+          <Text style={styles.guestData}>{guest.guestMobileNumber}</Text>
+          <Text style={styles.guestData}>{guest.guestAge}</Text>
+          <Text style={styles.guestData}>{guest.guestNic}</Text>
+          <Text style={styles.guestData}>{guest.guestGender}</Text>
 
           <View style={styles.buttonContainer}>
             <IconButton
               icon="delete"
               color="red"
               size={24}
-              onPress={() => setSelectedGuest(guest)}
+              onPress={handleDeleteGuest}
             />
             <IconButton
               icon="pencil"
@@ -222,9 +222,9 @@ const handleDeleteGuest = () => {
         </View>
         </ScrollView>
       </Modal>
-      <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30, top: 30 }}>
+      {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30, top: 30 }}>
         Add Guest
-      </Button>
+      </Button> */}
       {/* <IconButton
         icon="delete"
         color="red"
