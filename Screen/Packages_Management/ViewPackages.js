@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Modal, StyleSheet, View } from 'react-native';
+import { Alert, Modal, StyleSheet, View ,ScrollView} from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import 'firebase/firestore';
@@ -122,6 +122,7 @@ const handleDeletePackage = () => {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
       {packages.map((pkg) => (
         <View
           key={pkg.id}
@@ -153,6 +154,7 @@ const handleDeletePackage = () => {
           </View>
         </View>
       ))}
+      </ScrollView>
       <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
           <Text style={styles.packageName}>{selectedPackage?.packageName}</Text>
@@ -187,17 +189,17 @@ const handleDeletePackage = () => {
           </View>
         </View>
       </Modal>
-      {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)}>
+      <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30 }}>
         Add Package
-      </Button> */}
-      <IconButton
+      </Button>
+      {/* <IconButton
         icon="delete"
         color="red"
         size={24}
         // disabled={!selectedPackage}
         onPress={handleDeletePackage}
         style={{ position: 'absolute', bottom: 16, right: 16 }}
-      />
+      /> */}
     </View>
   );
 };
