@@ -17,6 +17,9 @@ import RegisterScreen from './Screen/Auth/Register';
 import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
 
+//guest list management
+import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
+
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -67,6 +70,8 @@ export default function App() {
         <Stack.Screen name='Detail'component={Detail} />
 
         <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/>
+
+        <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
