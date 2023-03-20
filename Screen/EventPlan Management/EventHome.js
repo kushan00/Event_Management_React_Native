@@ -31,6 +31,10 @@ const EventHomeScreen = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const navigation = useNavigation();
 
+    const packageViewPage = ()=>{
+      navigation.navigate("ViewPackages");
+  }
+
     const handleEventPress = (event) => {
       setSelectedEvent(event);
       //navigation.navigate('EventDetails', { event });
@@ -58,7 +62,7 @@ const EventHomeScreen = () => {
                 <TouchableOpacity style={styles.eventButton1}>
                 <Text>Invitation</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.eventButton2}>
+                <TouchableOpacity  onPress={packageViewPage} style={styles.eventButton2}>
                 <Text>Packages</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.eventButton3}>
