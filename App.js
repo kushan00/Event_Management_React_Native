@@ -8,13 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 //screens
 
 import SplashScreen from './Screen/CommonScreens/SplashScreen';
-import EventHomeScreen from './Screen/EventPlan Management/EventHome';
+import EventHomeScreen from './Screen/EventPlan_Management/EventHome';
 import Detail from './Screen/UpdateToDoList';
 import LoginScreen from "./Screen/Auth/Login";
 import RegisterScreen from './Screen/Auth/Register';
 
 //packages management
-import ViewPackages from './Screen/Packages Management/viewPackages';
+import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
 
 const Stack = createStackNavigator()
@@ -42,16 +42,31 @@ export default function App() {
     );
   };
 
+  // const ViewPackegesHeader = ({navigation}) => {
+  //   return (
+  //     <View style={styles.appBar}>
+  //       <Image source={require('./assets/favicon.png')} style={styles.logo} />
+  //       <Text style={styles.appName}>Event Planner</Text>
+  //       <TouchableOpacity style={styles.signOutButton} onPress={()=>{
+  //         removeData("token");
+  //         // navigation.navigate('LoginScreen');
+  //       }}>
+  //         <Text style={styles.signOutButtonText}>Sign Out</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // };
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Spalsh" >
         <Stack.Screen name='Spalsh' component={SplashScreen} options={{ headerShown: false }}/>
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false  }}/> 
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false  }}/> 
-        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }}/>   
+        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader/> }}/>   
         <Stack.Screen name='Detail'component={Detail} />
 
-        <Stack.Screen name='ViewPackages'component={ViewPackages} />
+        <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
