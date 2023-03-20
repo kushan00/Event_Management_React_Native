@@ -8,10 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 //screens
 
 import SplashScreen from './Screen/CommonScreens/SplashScreen';
-import EventHomeScreen from './Screen/EventPlan/EventHome';
+import EventHomeScreen from './Screen/EventPlan Management/EventHome';
 import Detail from './Screen/UpdateToDoList';
 import LoginScreen from "./Screen/Auth/Login";
 import RegisterScreen from './Screen/Auth/Register';
+
+//packages management
+import ViewPackages from './Screen/Packages Management/viewPackages';
 
 
 const Stack = createStackNavigator()
@@ -47,6 +50,8 @@ export default function App() {
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false  }}/> 
         <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }}/>   
         <Stack.Screen name='Detail'component={Detail} />
+
+        <Stack.Screen name='ViewPackages'component={ViewPackages} />
       </Stack.Navigator>
     </NavigationContainer>
   );
