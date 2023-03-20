@@ -189,9 +189,9 @@ const handleDeletePackage = () => {
           </View>
         </View>
       </Modal>
-      <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30 }}>
+      {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30 }}>
         Add Package
-      </Button>
+      </Button> */}
       {/* <IconButton
         icon="delete"
         color="red"
