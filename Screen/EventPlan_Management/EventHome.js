@@ -45,6 +45,7 @@ const EventHomeScreen = () => {
     const handleEventPress = (event) => {
       setSelectedEvent(event);
       //navigation.navigate('EventDetails', { event });
+      navigation.navigate("AddEvents");
     };
 
   return (
