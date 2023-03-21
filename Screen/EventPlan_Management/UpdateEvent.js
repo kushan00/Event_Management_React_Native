@@ -1,36 +1,40 @@
-import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
-const AddEvent = () => {
-  const [eventName, setEventName] = useState("");
-  const [venue, setVenue] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [eventType, setEventType] = useState("");
+const UpdateEvent = ({ route }) => {
+  const  event  = route.params.event;
+  const [eventName, setEventName] = useState(event.eventName);
+  const [venue, setVenue] = useState(event.venue);
+  const [description, setDescription] = useState(event.description);
+  const [time, setTime] = useState(event.time);
+  const [date, setDate] = useState(event.date);
+  const [eventType, setEventType] = useState(event.eventType);
+
+  console.log("event data");
+  console.log(route);
+  console.log("event data 2");
+  console.log(event.eventName);
 
   const navigation = useNavigation();
 
-  const handleAddEvent = () => {
+  const handleUpdateEvent = () => {
     firebase
       .firestore()
       .collection("events")
-      .add({
+      .doc(event.id)
+      .update({
         eventName,
         venue,
-        user_id: firebase.auth().currentUser.uid
-          ? firebase.auth().currentUser.uid
-          : "no user id",
         description,
-        time, 
+        time,
         date,
         eventType,
       })
       .then(
-        () => console.log("Event successfully added!"),
+        () => console.log("Event successfully updated!"),
         navigation.navigate("Home")
       )
       .catch((error) => console.log(error));
@@ -86,8 +90,8 @@ const AddEvent = () => {
       <View style={styles.buttonContainer}>
         <Button title="Cancel" onPress={cancel} style={styles.button} />
         <Button
-          title="Add Event"
-          onPress={handleAddEvent}
+          title="Update Event"
+          onPress={handleUpdateEvent}
           style={styles.button}
         />
       </View>
@@ -120,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddEvent;
+export default UpdateEvent;
