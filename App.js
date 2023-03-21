@@ -26,6 +26,10 @@ import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
 import GuestListHome from './Screen/GuestList_Management/GuestListHome';
 import AddGuestList from './Screen/GuestList_Management/AddGuestList';
 
+//event management
+import AddEvents from './Screen/EventPlan_Management/AddEvents';
+import UpdateEvent from './Screen/EventPlan_Management/UpdateEvent';
+
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -85,6 +89,9 @@ export default function App() {
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
+
+        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
+        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
 
       </Stack.Navigator>
     </NavigationContainer>
