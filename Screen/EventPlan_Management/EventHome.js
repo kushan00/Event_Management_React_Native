@@ -57,11 +57,11 @@ const EventHomeScreen = () => {
   }, []);
 
   const invitationViewPage = () => {
-    navigation.navigate("InvitationHome");
+    navigation.navigate("InvitationHome",{ event: selectedEvent });
   };
 
   const GuestListHome = () => {
-    navigation.navigate("GuestListHome");
+    navigation.navigate("GuestListHome",{ event: selectedEvent });
   };
   const PackageHomePage = () => {
     navigation.navigate("PackageHomePage");
@@ -167,7 +167,7 @@ const EventHomeScreen = () => {
                   <Text>Packages</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={GuestListHome}
+                  onPress={()=>GuestListHome(event)}
                   style={styles.eventButton3}
                 >
                   <Text>Guests</Text>

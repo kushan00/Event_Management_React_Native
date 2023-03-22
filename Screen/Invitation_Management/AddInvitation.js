@@ -1,19 +1,55 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import React, { useState , useEffect} from "react";
+import { View, Text, StyleSheet, TextInput, Button ,ScrollView , TouchableOpacity} from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MultipleSelectPicker } from 'react-native-multi-select-picker'
 
-const AddInvitation = () => {
-  const [eventName, setEventName] = useState("");
-  const [venue, setVenue] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [eventType, setEventType] = useState("");
+// Define the Firebase Firestore collection where the guests data is stored
+const guestsCollection = firebase.firestore().collection('guests');
+
+const AddInvitation = ({route}) => {
+  const  event  = route.params.event;
+
+  const [invitationName, setinvitationName] = useState("");
+  const [invitationGuestList, setinvitationGuestList] = useState([]);
+  const [isShownPicker, setisShownPicker] = useState(false);
 
   const navigation = useNavigation();
+
+  const [guests, setGuests] = useState([]);
+  const [guestListForDropDown, setguestListForDropDown] = useState([]);
+
+   const makeDropDownList = async () => {
+    var array= [];
+    guests.map((item,index)=>{
+      array.push({id: item.id, label: item.guestName , value:index+1})
+    });
+    setguestListForDropDown(array);
+  }
+
+    // Define the function to load the guests data from Firestore
+    // const loadGuests = async () => {
+    //   console.log("event", event?.id);
+    //   console.log("UID : ", await AsyncStorage.getItem("uid"));
+    //   firebase.firestore().collection('guests').where("user_id", "==", await AsyncStorage.getItem("uid")).where("EventId", "==", event?.id).then((snapshot) => {
+    //     const guestList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    //     setGuests(guestList);
+    //   }).catch((error)=>console.log(error));
+    // }
+
+
+    // Load the guests data from Firestore on component mount
+    useEffect(() => {
+      //loadGuests();
+      const unsubscribe = guestsCollection.onSnapshot((snapshot) => {
+        const guestList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setGuests(guestList);
+        makeDropDownList();
+      });
+      return unsubscribe;
+    }, []);
 
   const handleAddInvitation = async () => {
     console.log("UID : ", await AsyncStorage.getItem("uid"));
@@ -21,15 +57,12 @@ const AddInvitation = () => {
       .firestore()
       .collection("invitations")
       .add({
-        eventName,
-        venue,
+        invitationName,
+        eventID:event?.id,
         user_id: await AsyncStorage.getItem("uid") != null
           ? await AsyncStorage.getItem("uid")
           : "no user id",
-        description,
-        time,
-        date,
-        eventType,
+        invitationGuestList,
       })
       .then(
         () => { 
@@ -44,49 +77,58 @@ const AddInvitation = () => {
     navigation.navigate("InvitationHome");
   };
 
+
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Event Name"
-        onChangeText={(text) => setEventName(text)}
-        value={eventName}
+        onChangeText={(text) => setinvitationName(text)}
+        value={invitationName}
       />
-      <TextInput
+      {/* <Picker
         style={styles.input}
-        placeholder="Venue"
-        onChangeText={(text) => setVenue(text)}
-        value={venue}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Description"
-        onChangeText={(text) => setDescription(text)}
-        value={description}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Time"
-        onChangeText={(text) => setTime(text)}
-        value={time}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Date"
-        onChangeText={(text) => setDate(text)}
-        value={date}
-      />
-      <Picker
-        style={styles.input}
-        selectedValue={eventType}
-        onValueChange={(itemValue) => setEventType(itemValue)}
+        selectedValue={invitationGuestList}
+        onValueChange={(itemValue) => setinvitationGuestList(itemValue)}
       >
         <Picker.Item label="Select Event Type" value="" />
-        <Picker.Item label="Concert" value="Concert" />
-        <Picker.Item label="Sporting Event" value="Sporting Event" />
-        <Picker.Item label="Conference" value="Conference" />
-        <Picker.Item label="Party" value="Party" />
-      </Picker>
+        {guests.map((guest)=>{
+          return <Picker.Item key={guest.id} label={guest.guestName} value={guest} />
+        })}
+      </Picker> */}
+      <View style={styles.container2}>
+          <ScrollView>
+                <TouchableOpacity
+                    onPress={() => {
+                      isShownPicker ? 
+                      setisShownPicker(false) 
+                      :
+                      setisShownPicker(true);
+                    }}
+                    style={{ height: 50, width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#dadde3' }}
+                >
+                    <Text>Select Guests</Text>
+                </TouchableOpacity>
+                {isShownPicker ? <MultipleSelectPicker
+                    items={guestListForDropDown}
+                    onSelectionsChange={(ele) => { setinvitationGuestList(ele) }}
+                    selectedItems={invitationGuestList}
+                    buttonStyle={{ height: 100, justifyContent: 'center', alignItems: 'center' }}
+                    buttonText='hello'
+                    checkboxStyle={{ height: 20, width: 20 }}
+                />
+                    : null
+                }
+ 
+                {invitationGuestList.map((item, index) => {
+                    return <Text key={index}>
+                        {item.label}
+                    </Text>
+                })}
+ 
+            </ScrollView >
+      </View>
       <View style={styles.buttonContainer}>
         <Button title="Cancel" onPress={cancel} style={styles.button} />
         <Button
@@ -105,6 +147,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  container2: {
+    height:300,
+    width:300 
+  },
   input: {
     width: "90%",
     marginBottom: 10,
@@ -113,14 +159,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   buttonContainer: {
-    width: "40%",
+    width: "50%",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
   },
   button: {
-    marginLeft: 8,
-    padding:10,
+    margin: 10,
     backgroundColor: "#6EB7C7",
   },
 });

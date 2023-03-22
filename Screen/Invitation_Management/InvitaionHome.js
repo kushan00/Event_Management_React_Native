@@ -16,7 +16,9 @@ import { IconButton } from "react-native-paper";
 // Define the Firebase Firestore collection where the invitations data is stored
 const invitationsCollection = firebase.firestore().collection("invitations");
 
-const InvitationHome = () => {
+const InvitationHome = ({route}) => {
+    const  event  = route.params.event;
+
   const [invitations, setInvitations] = useState([]);
   const [selectedInvitation, setSelectedInvitation] = useState(null);
   const navigation = useNavigation();
@@ -72,7 +74,7 @@ const InvitationHome = () => {
   };
 
   const addInvitation = () => {
-    navigation.navigate("AddInvitation");
+    navigation.navigate("AddInvitation",{ event: event });
   };
 
   return (
