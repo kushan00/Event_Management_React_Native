@@ -54,11 +54,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: '#6EB7C7',
+        backgroundColor: 'black',
         borderRadius: 10,
         padding: 10,
         marginBottom: 10,
-        width: 200,
+        width: 250,
+        borderWidth: 1,
+        borderColor: 'white',
     },
     buttonText: {
         color: '#FFFFFF',

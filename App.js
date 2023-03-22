@@ -20,6 +20,8 @@ import AddPackages from './Screen/Packages_Management/AddPackges.js';
 
 import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
+import MoreDetails from './Screen/Packages_Management/MoreDetails';
+
 
 //guest list management
 import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
@@ -78,6 +80,7 @@ export default function App() {
         <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
         <Stack.Screen name='ViewPackages' component={ViewPackages} options={{ headerShown: true, title: "Packages View" }} />
         <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
+        <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
 
 
         {/* <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/> */}

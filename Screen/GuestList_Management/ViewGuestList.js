@@ -72,14 +72,20 @@ const handleDeleteGuest = () => {
   const styles = StyleSheet.create({
     container: {
       padding: 16,
+      borderWidth: 3,
+      borderColor: 'black',
+      backgroundColor: 'white',
+      borderRadius: 8,
+      elevation: 4,
     },
     packageBox: {
-      backgroundColor: '#6EB7C7',
+      backgroundColor: '#B4CCCC',
       padding: 10,
       marginBottom: 16,
       borderRadius: 8,
+      borderColor: 'black',
+      borderWidth: 1,
       elevation: 4,
-      marginTop: 46,
     },
     guestData: {
       fontSize: 24,
@@ -103,13 +109,18 @@ const handleDeleteGuest = () => {
     button: {
       marginLeft: 8,
       backgroundColor: '#6EB7C7',
+      borderWidth: 1,
+      borderColor: 'black',
     },
     modalContainer: {
-      backgroundColor: '#AFB4B4',
+      margin: 16,
+      backgroundColor: 'white',
       padding: 16,
       borderRadius: 8,
       elevation: 4,
-      marginTop: 90,
+      marginTop: 20,
+      borderWidth: 3,
+      borderColor: 'black',
       alignContent: 'center',
       
      
