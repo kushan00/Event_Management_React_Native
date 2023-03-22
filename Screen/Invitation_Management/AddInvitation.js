@@ -5,7 +5,7 @@ import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddEvent = () => {
+const AddInvitation = () => {
   const [eventName, setEventName] = useState("");
   const [venue, setVenue] = useState("");
   const [description, setDescription] = useState("");
@@ -15,11 +15,11 @@ const AddEvent = () => {
 
   const navigation = useNavigation();
 
-  const handleAddEvent = async () => {
+  const handleAddInvitation = async () => {
     console.log("UID : ", await AsyncStorage.getItem("uid"));
     firebase
       .firestore()
-      .collection("events")
+      .collection("invitations")
       .add({
         eventName,
         venue,
@@ -27,21 +27,21 @@ const AddEvent = () => {
           ? await AsyncStorage.getItem("uid")
           : "no user id",
         description,
-        time, 
+        time,
         date,
         eventType,
       })
       .then(
         () => { 
-          console.log("Event successfully added!");
-          alert("Event successfully added!");
-          navigation.navigate("Home");
+          console.log("Invitation successfully added!");
+          alert("Invitation successfully added!");
+          navigation.navigate("InvitationHome");
       }
       ).catch((error) => console.log(error));
   };
 
   const cancel = () => {
-    navigation.navigate("Home");
+    navigation.navigate("InvitationHome");
   };
 
   return (
@@ -91,7 +91,7 @@ const AddEvent = () => {
         <Button title="Cancel" onPress={cancel} style={styles.button} />
         <Button
           title="Add Event"
-          onPress={handleAddEvent}
+          onPress={handleAddInvitation}
           style={styles.button}
         />
       </View>
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddEvent;
+export default AddInvitation;

@@ -1,47 +1,47 @@
-import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from "@react-native-picker/picker";
 
-const AddEvent = () => {
-  const [eventName, setEventName] = useState("");
-  const [venue, setVenue] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [eventType, setEventType] = useState("");
+const UpdateInvitation = ({ route }) => {
+  const  event  = route.params.event;
+  const [eventName, setEventName] = useState(event.eventName);
+  const [venue, setVenue] = useState(event.venue);
+  const [description, setDescription] = useState(event.description);
+  const [time, setTime] = useState(event.time);
+  const [date, setDate] = useState(event.date);
+  const [eventType, setEventType] = useState(event.eventType);
+
+  console.log("event data");
+  console.log(route);
+  console.log("event data 2");
+  console.log(event.eventName);
 
   const navigation = useNavigation();
 
-  const handleAddEvent = async () => {
-    console.log("UID : ", await AsyncStorage.getItem("uid"));
+  const handleUpdateInvitation = () => {
     firebase
       .firestore()
       .collection("events")
-      .add({
+      .doc(event.id)
+      .update({
         eventName,
         venue,
-        user_id: await AsyncStorage.getItem("uid") != null
-          ? await AsyncStorage.getItem("uid")
-          : "no user id",
         description,
-        time, 
+        time,
         date,
         eventType,
       })
       .then(
-        () => { 
-          console.log("Event successfully added!");
-          alert("Event successfully added!");
-          navigation.navigate("Home");
-      }
-      ).catch((error) => console.log(error));
+        () => console.log("Event successfully updated!"),
+        navigation.navigate("InvitationHome")
+      )
+      .catch((error) => console.log(error));
   };
 
   const cancel = () => {
-    navigation.navigate("Home");
+    navigation.navigate("InvitationHome");
   };
 
   return (
@@ -90,8 +90,8 @@ const AddEvent = () => {
       <View style={styles.buttonContainer}>
         <Button title="Cancel" onPress={cancel} style={styles.button} />
         <Button
-          title="Add Event"
-          onPress={handleAddEvent}
+          title="Update Event"
+          onPress={handleUpdateInvitation}
           style={styles.button}
         />
       </View>
@@ -120,9 +120,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 8,
-    padding:10,
     backgroundColor: "#6EB7C7",
   },
 });
 
-export default AddEvent;
+export default UpdateInvitation;

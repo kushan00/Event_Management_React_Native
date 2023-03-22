@@ -56,8 +56,8 @@ const EventHomeScreen = () => {
     return unsubscribe;
   }, []);
 
-  const packageViewPage = () => {
-    navigation.navigate("ViewPackages");
+  const invitationViewPage = () => {
+    navigation.navigate("InvitationHome");
   };
 
   const GuestListHome = () => {
@@ -117,7 +117,13 @@ const EventHomeScreen = () => {
       </TouchableOpacity>
       <View style={styles.eventContainer}>
         <ScrollView>
-          {events.map((event) => (
+          
+          {events.length == 0 ? 
+          <View style={styles.event2}>
+            <Text style={styles.eventTitle2}>No Events</Text>
+          </View>
+          :
+          events.map((event) => (
             <View
               key={event.id}
               style={[
@@ -151,7 +157,7 @@ const EventHomeScreen = () => {
                 />
               </View>
               <View style={styles.eventButtons}>
-                <TouchableOpacity style={styles.eventButton1}>
+                <TouchableOpacity style={styles.eventButton1} onPress={invitationViewPage}>
                   <Text>Invitation</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -251,6 +257,13 @@ const styles = StyleSheet.create({
   event: {
     margin: 20,
     padding: 5,
+  },
+  event2: {
+    padding: 100,
+  },
+  eventTitle2: {
+    fontWeight: "bold",
+    fontSize: 20,
   },
   selectedEvent: {
     backgroundColor: "#a7e8fc",

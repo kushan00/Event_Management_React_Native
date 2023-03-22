@@ -13,7 +13,7 @@ const  LoginScreen = () => {
     const userRef = firebase.firestore().collection('users');
 
  
-    const handleRegisterPage = ()=>{
+    const handleRegisterPage = () => {
         navigation.navigate("RegisterScreen");
     }
 
@@ -22,7 +22,7 @@ const  LoginScreen = () => {
             .signInWithEmailAndPassword(email, password)
             .then(userCrds => {
                 const user = userCrds.user;
-                console.log('Logged user: ', user);
+                console.log('Logged user: ', user?.uid);
                 userRef
                     .orderBy('createdAt', 'desc')
                     .onSnapshot( 
@@ -34,11 +34,8 @@ const  LoginScreen = () => {
                             if(user2.email == user?.email)
                             {
                                 storeData("token", user?.email);
+                                storeData("uid",user?.uid);
                                 navigation.navigate("Home");
-                            }
-                            else
-                            {
-                                alert("User Not Found");
                             }
                         })
                     })        
