@@ -29,6 +29,9 @@ import AddGuestList from './Screen/GuestList_Management/AddGuestList';
 //event management
 import AddEvents from './Screen/EventPlan_Management/AddEvents';
 import UpdateEvent from './Screen/EventPlan_Management/UpdateEvent';
+import InvitationHome from './Screen/Invitation_Management/InvitaionHome';
+import AddInvitation from './Screen/Invitation_Management/AddInvitation';
+import UpdateInvitation from './Screen/Invitation_Management/UpdateInvitation';
 
 const Stack = createStackNavigator()
 
@@ -94,6 +97,10 @@ export default function App() {
         <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }} />
         <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
         <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
+
+        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"My Invitations" }} />
+        <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
+        <Stack.Screen name='UpdateInvitation'component={UpdateInvitation} options={{ headerShown: true , title:"Update Invitation" }}/>
 
       </Stack.Navigator>
     </NavigationContainer>
