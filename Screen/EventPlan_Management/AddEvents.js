@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddEvent = () => {
   const [eventName, setEventName] = useState("");
@@ -14,15 +15,16 @@ const AddEvent = () => {
 
   const navigation = useNavigation();
 
-  const handleAddEvent = () => {
+  const handleAddEvent = async () => {
+    console.log("UID : ", await AsyncStorage.getItem("uid"));
     firebase
       .firestore()
       .collection("events")
       .add({
         eventName,
         venue,
-        user_id: firebase.auth().currentUser.uid
-          ? firebase.auth().currentUser.uid
+        user_id: await AsyncStorage.getItem("uid") != null
+          ? await AsyncStorage.getItem("uid")
           : "no user id",
         description,
         time, 
@@ -30,10 +32,12 @@ const AddEvent = () => {
         eventType,
       })
       .then(
-        () => console.log("Event successfully added!"),
-        navigation.navigate("Home")
-      )
-      .catch((error) => console.log(error));
+        () => { 
+          console.log("Event successfully added!");
+          alert("Event successfully added!");
+          navigation.navigate("Home");
+      }
+      ).catch((error) => console.log(error));
   };
 
   const cancel = () => {
@@ -116,6 +120,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 8,
+    padding:10,
     backgroundColor: "#6EB7C7",
   },
 });

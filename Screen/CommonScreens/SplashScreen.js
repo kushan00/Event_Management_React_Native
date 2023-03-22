@@ -13,7 +13,7 @@ const  SplashScreen = ()=> {
     //setToken(AsyncStorage.getItem("token") !== null ? AsyncStorage.getItem("token") : null);
     
     setTimeout( async () => {
-      console.log("Token", await AsyncStorage.getItem("token") == null ? "true" : "false");
+      console.log("Token", await AsyncStorage.getItem("token") == null ? "false" : "true");
         await AsyncStorage.getItem("token") == null 
         ? 
         navigation.navigate('LoginScreen') 
