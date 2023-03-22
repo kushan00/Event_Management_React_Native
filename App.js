@@ -28,6 +28,13 @@ import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
 import GuestListHome from './Screen/GuestList_Management/GuestListHome';
 import AddGuestList from './Screen/GuestList_Management/AddGuestList';
 
+//event management
+import AddEvents from './Screen/EventPlan_Management/AddEvents';
+import UpdateEvent from './Screen/EventPlan_Management/UpdateEvent';
+import InvitationHome from './Screen/Invitation_Management/InvitaionHome';
+import AddInvitation from './Screen/Invitation_Management/AddInvitation';
+import UpdateInvitation from './Screen/Invitation_Management/UpdateInvitation';
+
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -41,11 +48,12 @@ export default function App() {
   const EventHeader = ({ navigation }) => {
     return (
       <View style={styles.appBar}>
-        <Image source={require('./assets/favicon.png')} style={styles.logo} />
+        <Image source={require('./assets/logo.png')} style={styles.logo} />
         <Text style={styles.appName}>Event Planner</Text>
         <TouchableOpacity style={styles.signOutButton} onPress={() => {
           removeData("token");
-          // navigation.navigate('LoginScreen');
+          removeData("uid");
+          //navigation.navigate('LoginScreen');
         }}>
           <Text style={styles.signOutButtonText}>Sign Out</Text>
         </TouchableOpacity>
@@ -74,7 +82,7 @@ export default function App() {
         <Stack.Screen name='Spalsh' component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }} />
-        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }} />
+
         <Stack.Screen name='Detail' component={Detail} />
 
         <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
@@ -88,6 +96,14 @@ export default function App() {
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
+
+        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
+        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
+
+        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"My Invitations" }} />
+        <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
+        <Stack.Screen name='UpdateInvitation'component={UpdateInvitation} options={{ headerShown: true , title:"Update Invitation" }}/>
 
       </Stack.Navigator>
     </NavigationContainer>
@@ -109,8 +125,8 @@ const styles = StyleSheet.create({
     top: 50
   },
   logo: {
-    width: 24,
-    height: 24,
+    width: 50,
+    height: 50,
   },
   appName: {
     color: '#fff',
