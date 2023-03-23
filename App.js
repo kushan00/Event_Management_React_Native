@@ -33,6 +33,7 @@ import UpdateEvent from './Screen/EventPlan_Management/UpdateEvent';
 import InvitationHome from './Screen/Invitation_Management/InvitaionHome';
 import AddInvitation from './Screen/Invitation_Management/AddInvitation';
 import UpdateInvitation from './Screen/Invitation_Management/UpdateInvitation';
+import OnboardingScreen from './Screen/CommonScreens/BoardingScreen';
 
 const Stack = createStackNavigator()
 
@@ -52,7 +53,7 @@ export default function App() {
         <TouchableOpacity style={styles.signOutButton} onPress={() => {
           removeData("token");
           removeData("uid");
-          //navigation.navigate('LoginScreen');
+          navigation.navigate('LoginScreen');
         }}>
           <Text style={styles.signOutButtonText}>Sign Out</Text>
         </TouchableOpacity>
@@ -79,6 +80,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Spalsh" >
         <Stack.Screen name='Spalsh' component={SplashScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='BoardingScreen' component={OnboardingScreen} options={{ headerShown: false }} />
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }} />
 
@@ -93,7 +95,7 @@ export default function App() {
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
 
-        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: (navigation) => <EventHeader {...navigation}/> }} />
         <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
         <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
 

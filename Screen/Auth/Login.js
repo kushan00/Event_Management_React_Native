@@ -1,5 +1,5 @@
 import { useState} from "react";
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View , Image} from "react-native";
 import { firebase ,auth} from '../../config';
 import { useNavigation } from '@react-navigation/native';
 import { storeData } from '../AsyncStorage/Storage';
@@ -51,16 +51,10 @@ const  LoginScreen = () => {
             style={styles.container}
             behavior={'padding'}
         >
-             <Text style={{
-        fontSize: 40,
-        fontWeight: "600",
-        textAlign: "center",
-        color: "#000000",
-        marginTop: "35%",
-        marginBottom: "5%"
-      }}>
-        Event Management
-      </Text>
+        <Image source={require('../../assets/logo-bgremove.png')} style={{
+            width: 200,
+            height: 200,
+        }} />
             <View
                 style={styles.inputContainer}
             >

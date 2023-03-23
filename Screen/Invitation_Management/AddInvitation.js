@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
+const guestsCollection = firebase.firestore().collection('guests');
 
 const AddInvitation = ({route}) => {
   const  event  = route.params.event;
@@ -18,9 +18,19 @@ const AddInvitation = ({route}) => {
   const [invitationLocation, setinvitationLocation] = useState("");
   const [invitationType, setinvitationType] = useState("");
   const [invitationStatus, setinvitationStatus] = useState("");
+  const [selectedGuest, setselectedGuest] = useState("Select Guest");
 
   const navigation = useNavigation();
 
+  const [guests, setGuests] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = guestsCollection.onSnapshot((snapshot) => {
+      const guestList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setGuests(guestList);
+    });
+    return unsubscribe;
+  }, []);
 
   const handleAddInvitation = async () => {
     console.log("UID : ", await AsyncStorage.getItem("uid"));
@@ -36,6 +46,7 @@ const AddInvitation = ({route}) => {
         invitationLocation,
         invitationType,
         invitationStatus:false,
+        selectedGuest,
         eventID:event?.id,
         user_id: await AsyncStorage.getItem("uid") != null
           ? await AsyncStorage.getItem("uid")
@@ -51,7 +62,7 @@ const AddInvitation = ({route}) => {
   };
 
   const cancel = () => {
-    navigation.navigate("InvitationHome");
+    navigation.navigate("InvitationHome", {event:event});
   };
 
 
@@ -98,6 +109,18 @@ const AddInvitation = ({route}) => {
         <Picker.Item label="Birthday" value="Birthday" />
         <Picker.Item label="Anniversary" value="Anniversary" />
         <Picker.Item label="Other" value="Other" />
+      </Picker>
+
+      <Picker
+        style={styles.input}
+        selectedValue={selectedGuest}
+        onValueChange={(itemValue) => setselectedGuest(itemValue)}
+      >
+        <Picker.Item label="Select Guest" value="Select Guest" />
+        {guests.map((guest)=>{
+          return <Picker.Item label={guest.guestName} value={guest.guestName} />
+        })}
+
       </Picker>
       
       <View style={styles.buttonContainer}>
