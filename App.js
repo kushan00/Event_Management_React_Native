@@ -85,9 +85,9 @@ export default function App() {
 
         {/* <Stack.Screen name='Detail' component={Detail} /> */}
 
-        <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
-        <Stack.Screen name='ViewPackages' component={ViewPackages} options={{ headerShown: true, title: "Packages View" }} />
-        <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
+        <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='ViewPackages' component={ViewPackages}  options={{ header: () => <EventHeader /> }}  />
+        <Stack.Screen name='AddPackages' component={AddPackages} options={{ header: () => <EventHeader /> }} />
         <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
 
 

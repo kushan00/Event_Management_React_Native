@@ -14,6 +14,7 @@ const ViewPackages = () => {
   const [packageName, setPackageName] = useState('');
   const [packageDescription, setPackageDescription] = useState('');
   const [packagePrice, setPackagePrice] = useState('');
+  const [text, setText] = useState('');
 
   // Load the packages data from Firestore on component mount
   useEffect(() => {
@@ -62,16 +63,39 @@ const ViewPackages = () => {
     }
   };
 
+
+  
+    const onChangeText = (newText) => {
+      setText(newText);
+    };
+
+  //event header
+  const EventHeader = ({ navigation }) => {
+    return (
+      <View style={styles.appBar}>
+        <Image source={require('../../assets/logo-bgremove.png')} style={styles.logo} />
+        <Text style={styles.appName}>Event-Mate Planning</Text>
+        <TouchableOpacity style={styles.signOutButton} onPress={() => {
+          // removeData("token");
+          // removeData("uid");
+          //navigation.navigate('LoginScreen');
+        }}>
+          <Text style={styles.signOutButtonText}>Sign Out</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   // Define the styles for the components
   const styles = StyleSheet.create({
     container: {
       padding: 16,
-      borderWidth: 3,
+      //borderWidth: 3,
       borderColor: 'black',
       backgroundColor: 'white',
       borderRadius: 8,
       elevation: 4,
-      // marginTop: 50,
+      marginTop: 30,
 
     },
     packageBox: {
@@ -82,18 +106,20 @@ const ViewPackages = () => {
       borderColor: 'black',
       borderWidth: 1,
       elevation: 4,
-      
+
       // marginTop: 46,
     },
     packageName: {
       fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 8,
-      color: 'red'
+      color: '#3D0B66',
+      textDecorationLine: 'underline',
     },
     packageDescription: {
       fontSize: 16,
       marginBottom: 8,
+      fontWeight: 'bold',
     },
     packagePrice: {
       fontSize: 18,
@@ -162,106 +188,162 @@ const ViewPackages = () => {
       marginBottom: 20,
       textAlign: 'center',
     },
+    appBar: {
+      backgroundColor: '#CFC9E1',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      //borderWidth: 1,
+      height: 56,
+      top: 50
+    },
+    logo: {
+      width: 100,
+      height: 50,
+      marginLeft: -25,
+    },
+    appName: {
+      color: '#5B1655',
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginRight: 28,
+
+    },
+    signOutButton: {
+      backgroundColor: '#DB4437',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 4,
+    },
+    signOutButtonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    signOutButtonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    inputSomething: {
+      borderWidth: 1,
+      borderColor: 'black',
+      borderRadius: 5,
+      padding: 10,
+      height: 20,
+      // marginBottom: 10,
+      marginTop: 15,
+      // marginBottom: 12,
+      backgroundColor: 'white',
+
+    },
   });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} options={{ header: () => <EventHeader /> }}>
       <ImageBackground
 
-source={require('../../assets/music01.png')}
-style={styles.container}
+        source={require('../../assets/music01.png')}
+        style={styles.container}
 
->
-      <ScrollView>
-        
-        {packages.map((pkg) => (
-          
-          // <ImageBackground
+      >
+        <ScrollView>
 
-          // source={require('../../assets/music.png')}
-          // style={styles.container}
-          
-          // >
+          {packages.map((pkg) => (
 
-          <View
-            key={pkg.id}
-            style={styles.packageBox}
-            onTouchEnd={() => setSelectedPackage(pkg)}
-            
-          >
-            
-            <Text style={styles.packageName}>{pkg.packageName}</Text>
-            <Text style={styles.packageDescription}>{pkg.packageDescription}</Text>
-            <Text style={styles.packagePrice}>Rs. {pkg.packagePrice}</Text>
-            <View style={styles.buttonContainer}>
-              <IconButton
-                icon="delete"
-                color="red"
-                size={24}
-                onPress={(handleDeletePackage)}
-              />
+            // <ImageBackground
 
-              <IconButton
-                icon="pencil"
-                color="blue"
-                size={24}
-                onPress={() => {
-                  setSelectedPackage(pkg);
-                  setPackageName(pkg.packageName);
-                  setPackageDescription(pkg.packageDescription);
-                  setPackagePrice(pkg.packagePrice);
-                  setModalVisible(true);
-                }}
-              />
+            // source={require('../../assets/music.png')}
+            // style={styles.container}
+
+            // >
+
+            <View
+              key={pkg.id}
+              style={styles.packageBox}
+              onTouchEnd={() => setSelectedPackage(pkg)}
+
+            >
+
+              <Text style={styles.packageName}>{pkg.packageName}</Text>
+              <Text style={styles.packageDescription}>{pkg.packageDescription}</Text>
+              <Text style={styles.packagePrice}>Rs. {pkg.packagePrice}</Text>
+
+              {/* <TextInput
+                style={styles.inputSomething}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="Type something..."
+              /> */}
+
+              <View style={styles.buttonContainer}>
+                <IconButton
+                  icon="delete"
+                  color="red"
+                  size={24}
+                  onPress={(handleDeletePackage)}
+                />
+
+                <IconButton
+                  icon="pencil"
+                  color="blue"
+                  size={24}
+                  onPress={() => {
+                    setSelectedPackage(pkg);
+                    setPackageName(pkg.packageName);
+                    setPackageDescription(pkg.packageDescription);
+                    setPackagePrice(pkg.packagePrice);
+                    setModalVisible(true);
+                  }}
+                />
+              </View>
+
             </View>
-           
-          </View>
-         
-          
-        ))}
-      </ScrollView>
-      <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.title}>Upadate Package Details</Text>
-          <Text style={styles.packageName}>{selectedPackage?.packageName}</Text>
-          {/* <Text style={styles.packageDescription}>{selectedPackage?.packageDescription}</Text>
+
+
+          ))}
+        </ScrollView>
+        <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.title}>Upadate Package Details</Text>
+            <Text style={styles.packageName}>{selectedPackage?.packageName}</Text>
+            {/* <Text style={styles.packageDescription}>{selectedPackage?.packageDescription}</Text>
           <Text style={styles.packagePrice}> {selectedPackage?.packagePrice}</Text> */}
-          <Text>Enter Package Name</Text>
-          <TextInput
-            label="Package Name"
-            value={packageName}
-            onChangeText={setPackageName}
-            style={styles.input}
-          />
-          <Text>Enter Package Description</Text>
-          <TextInput
-            label="Package Description"
-            value={packageDescription}
-            onChangeText={setPackageDescription}
-            style={styles.descriptionInput}
-          />
-          <Text>Enter Package Price</Text>
-          <TextInput
-            label="Package Price"
-            value={packagePrice}
-            onChangeText={setPackagePrice}
-            keyboardType="numeric"
-            style={styles.input}
-          />
-          <View style={styles.buttonContainer}>
-            <Button mode="contained" onPress={() => setModalVisible(false)} style={styles.button}>
-              Cancel
-            </Button>
-            <Button mode="contained" onPress={handleUpdatePackage} style={styles.button}>
-              Update
-            </Button>
+            <Text>Enter Package Name</Text>
+            <TextInput
+              label="Package Name"
+              value={packageName}
+              onChangeText={setPackageName}
+              style={styles.input}
+            />
+            <Text>Enter Package Description</Text>
+            <TextInput
+              label="Package Description"
+              value={packageDescription}
+              onChangeText={setPackageDescription}
+              style={styles.descriptionInput}
+            />
+            <Text>Enter Package Price</Text>
+            <TextInput
+              label="Package Price"
+              value={packagePrice}
+              onChangeText={setPackagePrice}
+              keyboardType="numeric"
+              style={styles.input}
+            />
+            <View style={styles.buttonContainer}>
+              <Button mode="contained" onPress={() => setModalVisible(false)} style={styles.button}>
+                Cancel
+              </Button>
+              <Button mode="contained" onPress={handleUpdatePackage} style={styles.button}>
+                Update
+              </Button>
+            </View>
           </View>
-        </View>
-      </Modal>
-      {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30 }}>
+        </Modal>
+        {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30 }}>
         Add Package
       </Button> */}
-      {/* <IconButton
+        {/* <IconButton
         icon="delete"
         color="red"
         size={24}
