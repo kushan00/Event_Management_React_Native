@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Modal, StyleSheet, View ,ScrollView} from 'react-native';
+import { Alert, Modal, StyleSheet, ImageBackground, View ,ScrollView} from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import 'firebase/firestore';
@@ -72,14 +72,20 @@ const handleDeleteGuest = () => {
   const styles = StyleSheet.create({
     container: {
       padding: 16,
+      borderWidth: 3,
+      borderColor: 'black',
+      backgroundColor: 'white',
+      borderRadius: 8,
+      elevation: 4,
     },
     packageBox: {
-      backgroundColor: '#6EB7C7',
+      backgroundColor: '#CFC9E1',
       padding: 10,
       marginBottom: 16,
       borderRadius: 8,
+      borderColor: 'black',
+      borderWidth: 1,
       elevation: 4,
-      marginTop: 46,
     },
     guestData: {
       fontSize: 24,
@@ -103,13 +109,18 @@ const handleDeleteGuest = () => {
     button: {
       marginLeft: 8,
       backgroundColor: '#6EB7C7',
+      borderWidth: 1,
+      borderColor: 'black',
     },
     modalContainer: {
-      backgroundColor: '#AFB4B4',
+      margin: 16,
+      backgroundColor: 'white',
       padding: 16,
       borderRadius: 8,
       elevation: 4,
-      marginTop: 90,
+      marginTop: 20,
+      borderWidth: 3,
+      borderColor: 'black',
       alignContent: 'center',
       
      
@@ -128,6 +139,12 @@ const handleDeleteGuest = () => {
 
   return (
     <View style={styles.container}>
+        <ImageBackground
+
+source={require('../../assets/music01.png')}
+style={styles.container}
+
+>
       <ScrollView>
       {guests.map((guest) => (
         <View
@@ -220,7 +237,9 @@ const handleDeleteGuest = () => {
             </Button>
           </View>
         </View>
+        
         </ScrollView>
+        
       </Modal>
       {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30, top: 30 }}>
         Add Guest
@@ -233,6 +252,7 @@ const handleDeleteGuest = () => {
         onPress={handleDeleteGuest}
         style={{ position: 'absolute', bottom: 16, right: 16 }}
       /> */}
+      </ImageBackground>
     </View>
   );
 };

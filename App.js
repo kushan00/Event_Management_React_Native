@@ -19,6 +19,8 @@ import AddPackages from './Screen/Packages_Management/AddPackges.js';
 
 import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
+import MoreDetails from './Screen/Packages_Management/MoreDetails';
+
 
 //guest list management
 import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
@@ -45,8 +47,8 @@ export default function App() {
   const EventHeader = ({ navigation }) => {
     return (
       <View style={styles.appBar}>
-        <Image source={require('./assets/logo.png')} style={styles.logo} />
-        <Text style={styles.appName}>Event Planner</Text>
+        <Image source={require('./assets/logo-bgremove.png')} style={styles.logo} />
+        <Text style={styles.appName}>Event-Mate Planning</Text>
         <TouchableOpacity style={styles.signOutButton} onPress={() => {
           removeData("token");
           removeData("uid");
@@ -81,9 +83,11 @@ export default function App() {
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }} />
 
 
+
         <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
         <Stack.Screen name='ViewPackages' component={ViewPackages} options={{ headerShown: true, title: "Packages View" }} />
         <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
+        <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
 
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
@@ -108,23 +112,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   appBar: {
-    backgroundColor: '#4285F4',
+    backgroundColor: '#CFC9E1',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
+    //borderWidth: 1,
     height: 56,
     top: 50
   },
   logo: {
-    width: 50,
+    width: 100,
     height: 50,
+    marginLeft: -25,
   },
   appName: {
-    color: '#fff',
-    fontSize: 20,
+    color: '#5B1655',
+    fontSize: 16,
     fontWeight: 'bold',
-    marginLeft: 16,
+    marginRight: 28,
+    
   },
   signOutButton: {
     backgroundColor: '#DB4437',

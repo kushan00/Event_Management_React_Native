@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
@@ -81,56 +82,69 @@ const InvitationHome = ({route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.invitationContainer}>
-        <ScrollView>
-          
-          {invitations.length == 0 ? 
-          <View style={styles.invitation2}>
-            <Text style={styles.invitationTitle2}>No invitations</Text>
-          </View>
-          :
-          invitations.map((invitation) => (
-            <View
-              key={invitation.id}
-              style={[
-                styles.invitation,
-                selectedInvitation && selectedInvitation.id === invitation.id
-                  ? styles.selectedInvitation
-                  : null,
-              ]}
-              onTouchEnd={() => handleInvitationPress(invitation)}
+        <ImageBackground
+
+          source={require('../../assets/music01.png')}
+          style={styles.container}
+
+        >
+
+          <ScrollView>
+            {invitations.length == 0 ?
+              <View style={styles.invitation2}>
+                <Text style={styles.invitationTitle2}>No invitations</Text>
+              </View>
+              :
+              invitations.map((invitation) => (
+                <View
+                  key={invitation.id}
+                  style={[
+                    styles.invitation,
+                    selectedInvitation && selectedInvitation.id === invitation.id
+                      ? styles.selectedInvitation
+                      : null,
+                  ]}
+                  onTouchEnd={() => handleInvitationPress(invitation)}
+                >
+                  <Text style={styles.invitationTitle}>{invitation.invitationTitle}</Text>
+                  <Text style={styles.invitationDate}>{invitation.invitationDate}</Text>
+                  <Text style={styles.invitationDate}>{invitation.invitationType}</Text>
+                  <Text style={{color : invitation.invitationStatus == "True" ? "green" : "red" , fontSize:18}}>{invitation.invitationStatus == "True" ? "Sent" : "Not Sent"}</Text>
+                  <View style={styles.invitationExpanded}>
+                    <Text>More details about the Invitation</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <IconButton
+                      icon="delete"
+                      color="red"
+                      size={24}
+                      onPress={handleDeleteinvitation}
+                    />
+                    <IconButton
+                      icon="pencil"
+                      color="blue"
+                      size={24}
+                      onPress={() => {
+                        setSelectedInvitation(invitation);
+                        handleUpdateinvitation();
+                      }}
+                    />
+                  </View>
+                  {/* <View style={styles.invitationButtons}>
+                    <TouchableOpacity style={styles.invitationButton1}>
+                      <Text style={{ color: 'white' }}>Invitation</Text>
+                    </TouchableOpacity>
+                  </View> */}
+                </View>
+              ))}
+          </ScrollView>
+          <TouchableOpacity
+              onPress={addInvitation}
+              style={styles.addButton}
             >
-              <Text style={styles.invitationTitle}>{invitation.invitationTitle}</Text>
-              <Text style={styles.invitationDate}>{invitation.invitationDate}</Text>
-              <Text style={styles.invitationDate}>{invitation.invitationType}</Text>
-              <View style={styles.invitationExpanded}>
-                <Text>Delete or Edit Invitation</Text>
-              </View>
-              <View style={styles.buttonContainer}>
-                <IconButton
-                  icon="delete"
-                  color="red"
-                  size={24}
-                  onPress={handleDeleteinvitation}
-                />
-                <IconButton
-                  icon="pencil"
-                  color="blue"
-                  size={24}
-                  onPress={() => {
-                    setSelectedInvitation(invitation);
-                    handleUpdateinvitation();
-                  }}
-                />
-              </View>
-            </View>
-          ))}
-        </ScrollView>
-        <TouchableOpacity
-        onPress={addInvitation}
-        style={styles.addButton}
-      >
-        <Text style={styles.invitationTitle}>Add Invitation</Text>
-      </TouchableOpacity>
+              <Text style={styles.buttonTitle}>Add Invitation</Text>
+            </TouchableOpacity>
+        </ImageBackground>
       </View>
     </View>
   );
@@ -140,26 +154,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    top: 40,
   },
   mainContainer: {
     flex: 1,
+    top: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",
   },
   invitationContainer: {
-    backgroundColor: "#fff",
     padding: 20,
     margin: 20,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    height: 600,
+    height: 650,
+    borderColor: 'black',
+    marginTop: -65,
+    width: 420,
+    marginLeft: -12,   
   },
   invitationTitle: {
     fontWeight: "bold",
     fontSize: 18,
     marginBottom: 10,
+  },
+  buttonTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 10,
+    color:"white"
   },
   invitationDate: {
     fontWeight: "bold",
@@ -173,6 +195,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f2f2",
     padding: 10,
     marginTop: 10,
+    borderRadius: 10,
+    borderWidth: 1,
   },
   invitationButtons: {
     flexDirection: "row",
@@ -180,12 +204,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   invitationButton1: {
-    backgroundColor: "#f1f518",
-    padding: 10,
+    backgroundColor: 'black',
     borderRadius: 10,
-    flex: 1,
+    padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   invitationButton2: {
     backgroundColor: "#f518ed",
@@ -204,18 +230,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    marginTop: 10,
-    backgroundColor: "#AB87FF",
-    padding: 10,
+    backgroundColor: 'black',
     borderRadius: 10,
+    padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: 'white',
+    marginBottom: 10,
   },
   invitation: {
     borderWidth:1,
     borderRadius:10,
     margin: 20,
     padding: 5,
+    backgroundColor: "#F4EEF9",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "white",
   },
   invitation2: {
     padding: 100,
@@ -225,9 +257,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   selectedInvitation: {
-    backgroundColor: "#a7e8fc",
+    backgroundColor: "#B27BDB",
     margin: 20,
-    padding: 5,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "white",
   },
   buttonContainer: {
     flexDirection: "row",
