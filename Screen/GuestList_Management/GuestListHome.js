@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const GuestListHome = () => {
-
+const GuestListHome = ({route}) => {
+    const  event  = route.params.event;
     const navigation = useNavigation();
 
-    const AddGuests = () => {
-        navigation.navigate("AddGuestList");
+    const AddGuests= () => {
+        navigation.navigate("AddGuestList" , { event: event });
     }
 
     const ViewGuests = () => {
-        navigation.navigate("ViewGuestList");
+        navigation.navigate("ViewGuestList" , { event: event });
     }
 
     return (

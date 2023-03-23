@@ -1,41 +1,51 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import React, { useState , useEffect} from "react";
+import { View, Text, StyleSheet, TextInput, Button ,ScrollView , TouchableOpacity} from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddInvitation = () => {
-  const [eventName, setEventName] = useState("");
-  const [venue, setVenue] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [eventType, setEventType] = useState("");
+
+
+
+const AddInvitation = ({route}) => {
+  const  event  = route.params.event;
+
+  const [invitationTitle, setinvitationTitle] = useState("");
+  const [invitationDescription, setinvitationDescription] = useState("");
+  const [invitationDate, setinvitationDate] = useState("");
+  const [invitationTime, setinvitationTime] = useState("");
+  const [invitationLocation, setinvitationLocation] = useState("");
+  const [invitationType, setinvitationType] = useState("");
+  const [invitationStatus, setinvitationStatus] = useState("");
 
   const navigation = useNavigation();
 
+
   const handleAddInvitation = async () => {
     console.log("UID : ", await AsyncStorage.getItem("uid"));
+    console.log("event", event?.id);
     firebase
       .firestore()
       .collection("invitations")
       .add({
-        eventName,
-        venue,
+        invitationTitle,
+        invitationDescription,
+        invitationDate,
+        invitationTime,
+        invitationLocation,
+        invitationType,
+        invitationStatus:false,
+        eventID:event?.id,
         user_id: await AsyncStorage.getItem("uid") != null
           ? await AsyncStorage.getItem("uid")
           : "no user id",
-        description,
-        time,
-        date,
-        eventType,
       })
       .then(
         () => { 
           console.log("Invitation successfully added!");
           alert("Invitation successfully added!");
-          navigation.navigate("InvitationHome");
+          navigation.navigate("InvitationHome" , {event:event});
       }
       ).catch((error) => console.log(error));
   };
@@ -44,53 +54,56 @@ const AddInvitation = () => {
     navigation.navigate("InvitationHome");
   };
 
+
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Event Name"
-        onChangeText={(text) => setEventName(text)}
-        value={eventName}
+        placeholder="Invitation Title"
+        onChangeText={(text) => setinvitationTitle(text)}
+        value={invitationTitle}
       />
       <TextInput
         style={styles.input}
-        placeholder="Venue"
-        onChangeText={(text) => setVenue(text)}
-        value={venue}
+        placeholder="Invitation Description"
+        onChangeText={(text) => setinvitationDescription(text)}
+        value={invitationDescription}
       />
       <TextInput
         style={styles.input}
-        placeholder="Description"
-        onChangeText={(text) => setDescription(text)}
-        value={description}
+        placeholder="Invitation Date"
+        onChangeText={(text) => setinvitationDate(text)}
+        value={invitationDate}
       />
       <TextInput
         style={styles.input}
-        placeholder="Time"
-        onChangeText={(text) => setTime(text)}
-        value={time}
+        placeholder="Invitation Time"
+        onChangeText={(text) => setinvitationTime(text)}
+        value={invitationTime}
       />
       <TextInput
         style={styles.input}
-        placeholder="Date"
-        onChangeText={(text) => setDate(text)}
-        value={date}
+        placeholder="Invitation Location"
+        onChangeText={(text) => setinvitationLocation(text)}
+        value={invitationLocation}
       />
       <Picker
         style={styles.input}
-        selectedValue={eventType}
-        onValueChange={(itemValue) => setEventType(itemValue)}
+        selectedValue={invitationType}
+        onValueChange={(itemValue) => setinvitationType(itemValue)}
       >
         <Picker.Item label="Select Event Type" value="" />
-        <Picker.Item label="Concert" value="Concert" />
-        <Picker.Item label="Sporting Event" value="Sporting Event" />
-        <Picker.Item label="Conference" value="Conference" />
-        <Picker.Item label="Party" value="Party" />
+        <Picker.Item label="Wedding" value="Wedding" />
+        <Picker.Item label="Birthday" value="Birthday" />
+        <Picker.Item label="Anniversary" value="Anniversary" />
+        <Picker.Item label="Other" value="Other" />
       </Picker>
+      
       <View style={styles.buttonContainer}>
         <Button title="Cancel" onPress={cancel} style={styles.button} />
         <Button
-          title="Add Event"
+          title="Add Invitation"
           onPress={handleAddInvitation}
           style={styles.button}
         />
@@ -105,6 +118,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  container2: {
+    height:300,
+    width:300 
+  },
   input: {
     width: "90%",
     marginBottom: 10,
@@ -113,14 +130,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   buttonContainer: {
-    width: "40%",
+    width: "80%",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
   },
   button: {
-    marginLeft: 8,
-    padding:10,
+    margin: 10,
     backgroundColor: "#6EB7C7",
   },
 });

@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import SplashScreen from './Screen/CommonScreens/SplashScreen';
 import EventHomeScreen from './Screen/EventPlan_Management/EventHome';
-//import Detail from './Screen/UpdateToDoList';
 import LoginScreen from "./Screen/Auth/Login";
 import RegisterScreen from './Screen/Auth/Register';
 
@@ -83,15 +82,12 @@ export default function App() {
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }} />
 
-        {/* <Stack.Screen name='Detail' component={Detail} /> */}
+
 
         <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
         <Stack.Screen name='ViewPackages' component={ViewPackages} options={{ headerShown: true, title: "Packages View" }} />
         <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
         <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
-
-
-        {/* <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/> */}
 
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
@@ -101,7 +97,7 @@ export default function App() {
         <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
         <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
 
-        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"My Invitations" }} />
+        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"Event Invitations" }} />
         <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
         <Stack.Screen name='UpdateInvitation'component={UpdateInvitation} options={{ headerShown: true , title:"Update Invitation" }}/>
 
