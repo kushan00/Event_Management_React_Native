@@ -93,7 +93,7 @@ export default function App() {
         <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
         <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
 
-        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"My Invitations" }} />
+        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"Event Invitations" }} />
         <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
         <Stack.Screen name='UpdateInvitation'component={UpdateInvitation} options={{ headerShown: true , title:"Update Invitation" }}/>
 

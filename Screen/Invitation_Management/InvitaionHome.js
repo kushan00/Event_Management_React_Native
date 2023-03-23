@@ -74,17 +74,12 @@ const InvitationHome = ({route}) => {
   };
 
   const addInvitation = () => {
+    console.log("event", event);
     navigation.navigate("AddInvitation",{ event: event });
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={addInvitation}
-        style={styles.addButton}
-      >
-        <Text style={styles.invitationTitle}>Add Invitation</Text>
-      </TouchableOpacity>
       <View style={styles.invitationContainer}>
         <ScrollView>
           
@@ -104,10 +99,11 @@ const InvitationHome = ({route}) => {
               ]}
               onTouchEnd={() => handleInvitationPress(invitation)}
             >
-              <Text style={styles.invitationTitle}>{invitation.invitationName}</Text>
-              <Text style={styles.invitationDate}>{invitation.date}</Text>
+              <Text style={styles.invitationTitle}>{invitation.invitationTitle}</Text>
+              <Text style={styles.invitationDate}>{invitation.invitationDate}</Text>
+              <Text style={styles.invitationDate}>{invitation.invitationType}</Text>
               <View style={styles.invitationExpanded}>
-                <Text>More details about the Invitation</Text>
+                <Text>Delete or Edit Invitation</Text>
               </View>
               <View style={styles.buttonContainer}>
                 <IconButton
@@ -126,14 +122,15 @@ const InvitationHome = ({route}) => {
                   }}
                 />
               </View>
-              <View style={styles.invitationButtons}>
-                <TouchableOpacity style={styles.invitationButton1}>
-                  <Text>Invitation</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           ))}
         </ScrollView>
+        <TouchableOpacity
+        onPress={addInvitation}
+        style={styles.addButton}
+      >
+        <Text style={styles.invitationTitle}>Add Invitation</Text>
+      </TouchableOpacity>
       </View>
     </View>
   );
@@ -162,6 +159,11 @@ const styles = StyleSheet.create({
   invitationTitle: {
     fontWeight: "bold",
     fontSize: 18,
+    marginBottom: 10,
+  },
+  invitationDate: {
+    fontWeight: "bold",
+    fontSize: 15,
     marginBottom: 10,
   },
   invitationDetails: {
@@ -208,9 +210,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 2,
     alignItems: "center",
-    marginBottom: 10,
   },
   invitation: {
+    borderWidth:1,
+    borderRadius:10,
     margin: 20,
     padding: 5,
   },
