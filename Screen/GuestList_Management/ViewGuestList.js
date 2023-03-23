@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Modal, StyleSheet, View ,ScrollView} from 'react-native';
+import { Alert, Modal, StyleSheet, ImageBackground, View ,ScrollView} from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import 'firebase/firestore';
@@ -79,7 +79,7 @@ const handleDeleteGuest = () => {
       elevation: 4,
     },
     packageBox: {
-      backgroundColor: '#B4CCCC',
+      backgroundColor: '#CFC9E1',
       padding: 10,
       marginBottom: 16,
       borderRadius: 8,
@@ -139,6 +139,12 @@ const handleDeleteGuest = () => {
 
   return (
     <View style={styles.container}>
+        <ImageBackground
+
+source={require('../../assets/music01.png')}
+style={styles.container}
+
+>
       <ScrollView>
       {guests.map((guest) => (
         <View
@@ -231,7 +237,9 @@ const handleDeleteGuest = () => {
             </Button>
           </View>
         </View>
+        
         </ScrollView>
+        
       </Modal>
       {/* <Button mode="contained" icon="plus" onPress={() => setModalVisible(true)} style={{ position: 'absolute', bottom: 30, right: 30, top: 30 }}>
         Add Guest
@@ -244,6 +252,7 @@ const handleDeleteGuest = () => {
         onPress={handleDeleteGuest}
         style={{ position: 'absolute', bottom: 16, right: 16 }}
       /> */}
+      </ImageBackground>
     </View>
   );
 };

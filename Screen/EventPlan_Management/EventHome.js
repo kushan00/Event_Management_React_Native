@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   Alert,
+  ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
@@ -109,73 +110,81 @@ const EventHomeScreen = () => {
 
   return (
     <View style={styles.container}>
+
       <TouchableOpacity
         onPress={addEvent}
         style={styles.addButton}
       >
-        <Text style={styles.eventTitle}>Add Event</Text>
+        <Text style={{ color: 'white' }}>Add Event</Text>
       </TouchableOpacity>
       <View style={styles.eventContainer}>
-        <ScrollView>
-          
-          {events.length == 0 ? 
-          <View style={styles.event2}>
-            <Text style={styles.eventTitle2}>No Events</Text>
-          </View>
-          :
-          events.map((event) => (
-            <View
-              key={event.id}
-              style={[
-                styles.event,
-                selectedEvent && selectedEvent.id === event.id
-                  ? styles.selectedEvent
-                  : null,
-              ]}
-              onTouchEnd={() => handleEventPress(event)}
-            >
-              <Text style={styles.eventTitle}>{event.eventName}</Text>
-              <Text style={styles.eventDate}>{event.date}</Text>
-              <View style={styles.eventExpanded}>
-                <Text>More details about the event</Text>
+        <ImageBackground
+
+          source={require('../../assets/music01.png')}
+          style={styles.container}
+
+        >
+          <ScrollView>
+
+            {events.length == 0 ?
+              <View style={styles.event2}>
+                <Text style={styles.eventTitle2}>No Events</Text>
               </View>
-              <View style={styles.buttonContainer}>
-                <IconButton
-                  icon="delete"
-                  color="red"
-                  size={24}
-                  onPress={handleDeleteEvent}
-                />
-                <IconButton
-                  icon="pencil"
-                  color="blue"
-                  size={24}
-                  onPress={() => {
-                    setSelectedEvent(event);
-                    handleUpdateEvent();
-                  }}
-                />
-              </View>
-              <View style={styles.eventButtons}>
-                <TouchableOpacity style={styles.eventButton1} onPress={invitationViewPage}>
-                  <Text>Invitation</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={PackageHomePage}
-                  style={styles.eventButton2}
+              :
+              events.map((event) => (
+                <View
+                  key={event.id}
+                  style={[
+                    styles.event,
+                    selectedEvent && selectedEvent.id === event.id
+                      ? styles.selectedEvent
+                      : null,
+                  ]}
+                  onTouchEnd={() => handleEventPress(event)}
                 >
-                  <Text>Packages</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={GuestListHome}
-                  style={styles.eventButton3}
-                >
-                  <Text>Guests</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+                  <Text style={styles.eventTitle}>{event.eventName}</Text>
+                  <Text style={styles.eventDate}>{event.date}</Text>
+                  <View style={styles.eventExpanded}>
+                    <Text>More details about the event</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <IconButton
+                      icon="delete"
+                      color="red"
+                      size={24}
+                      onPress={handleDeleteEvent}
+                    />
+                    <IconButton
+                      icon="pencil"
+                      color="blue"
+                      size={24}
+                      onPress={() => {
+                        setSelectedEvent(event);
+                        handleUpdateEvent();
+                      }}
+                    />
+                  </View>
+                  <View style={styles.eventButtons}>
+                    <TouchableOpacity style={styles.eventButton1} onPress={invitationViewPage}>
+                      <Text style={{ color: 'white' }}>Invitation</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={PackageHomePage}
+                      style={styles.eventButton2}
+                    >
+                      <Text style={{ color: 'white' }}>Packages</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={GuestListHome}
+                      style={styles.eventButton3}
+                    >
+                      <Text style={{ color: 'white' }}>Guests</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+          </ScrollView>
+        </ImageBackground>
       </View>
     </View>
   );
@@ -195,13 +204,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
   },
   eventContainer: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#AD91D9",
     padding: 20,
-    margin: 20,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    height: 600,
+    //margin: 20,
+    // borderRadius: 5,
+    // borderWidth: 1,
+    borderColor: "black",
+    height: 650,
+    marginTop: -50,
+
   },
   eventTitle: {
     fontWeight: "bold",
@@ -212,7 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   eventExpanded: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#eee",
     padding: 10,
     marginTop: 10,
   },
@@ -222,41 +233,63 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   eventButton1: {
-    backgroundColor: "#f1f518",
-    padding: 10,
+    backgroundColor: 'black',
     borderRadius: 10,
-    flex: 1,
+    padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   eventButton2: {
-    backgroundColor: "#f518ed",
-    padding: 10,
+    backgroundColor: 'black',
     borderRadius: 10,
-    flex: 1,
+    padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   eventButton3: {
-    backgroundColor: "#18f541",
-    padding: 10,
+    // backgroundColor: "#18f541",
+    // padding: 10,
+    // borderRadius: 10,
+    // flex: 1,
+    // marginHorizontal: 2,
+    // alignItems: "center",
+    backgroundColor: 'black',
     borderRadius: 10,
-    flex: 1,
+    padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   addButton: {
     marginTop: 10,
-    backgroundColor: "#AB87FF",
-    padding: 10,
+    // backgroundColor: "#AB87FF",
     borderRadius: 10,
     marginHorizontal: 2,
     alignItems: "center",
     marginBottom: 10,
+    backgroundColor: 'black',
+    borderRadius: 10,
+    padding: 10,
+    marginHorizontal: 2,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: 'white',
   },
   event: {
     margin: 20,
     padding: 5,
+    backgroundColor: "#F4EEF9",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "white",
   },
   event2: {
     padding: 100,
@@ -264,11 +297,15 @@ const styles = StyleSheet.create({
   eventTitle2: {
     fontWeight: "bold",
     fontSize: 20,
+    // color: "white",
   },
   selectedEvent: {
-    backgroundColor: "#a7e8fc",
+    backgroundColor: "#B27BDB",
     margin: 20,
-    padding: 5,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "white",
   },
   buttonContainer: {
     flexDirection: "row",

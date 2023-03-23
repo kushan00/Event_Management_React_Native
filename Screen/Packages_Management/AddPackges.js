@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, Alert ,TouchableOpacity, Text} from 'react-native';
 import { firebase } from '../../config';
+import { useNavigation } from "@react-navigation/native";
 
 const AddPackages = () => {
     const [packageName, setPackageName] = useState('');
     const [packageDescription, setPackageDescription] = useState('');
     const [packagePrice, setPackagePrice] = useState('');
+
+    const navigation = useNavigation();
 
     const handleSave = async () => {
         try {
@@ -18,6 +21,8 @@ const AddPackages = () => {
             setPackageName('');
             setPackageDescription('');
             setPackagePrice('');
+
+            navigation.navigate("PackageHomePage");
         } catch (error) {
             Alert.alert('Error', error.message);
         }
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
         height: 200,
       },
       button: {
-        backgroundColor: '#6EB7C7',
+        backgroundColor: '#AD91D9',
         borderRadius: 10,
         padding: 10,
         marginBottom: 20,

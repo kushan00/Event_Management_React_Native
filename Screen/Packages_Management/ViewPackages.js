@@ -75,7 +75,7 @@ const ViewPackages = () => {
 
     },
     packageBox: {
-      backgroundColor: '#B4CCCC',
+      backgroundColor: '#CFC9E1',
       padding: 10,
       marginBottom: 16,
       borderRadius: 8,
@@ -107,7 +107,7 @@ const ViewPackages = () => {
     },
     button: {
       marginLeft: 8,
-      backgroundColor: '#6EB7C7',
+      backgroundColor: '#AD91D9',
       borderWidth: 1,
       borderColor: 'black',
     },
@@ -168,7 +168,7 @@ const ViewPackages = () => {
     <View style={styles.container}>
       <ImageBackground
 
-source={require('../../assets/music.png')}
+source={require('../../assets/music01.png')}
 style={styles.container}
 
 >

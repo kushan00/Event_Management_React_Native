@@ -40,7 +40,7 @@ const PackageHomePage = () => {
         <View style={styles.container} >
             <ImageBackground
 
-                source={require('../../assets/music.png')}
+                source={require('../../assets/music01.png')}
                 style={styles.container}
 
             >
@@ -52,16 +52,16 @@ const PackageHomePage = () => {
                 /> */}
 
                 <TouchableOpacity style={styles.button} onPress={AddPackages}>
-                    <Text style={styles.buttonText}>Add new package</Text>
+                    <Text style={styles.buttonText}>Add new package details</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} onPress={ViewPackages}>
-                    <Text style={styles.buttonText}>View packages</Text>
+                    <Text style={styles.buttonText}>View packages detials</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={MoreDetails}>
-                    <Text style={styles.buttonText}>Package inquiry</Text>
-                </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.button} onPress={MoreDetails}>
+                    <Text style={styles.buttonText}>More details</Text>
+                </TouchableOpacity> */}
             </ImageBackground>
         </View>
     );
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         //backgroundColor: '#B4CCCC',
-        backgroundImage: 'url(../../assets/music)',
+        backgroundImage: 'url(../../assets/music01.png)',
         width: '100%',
     },
 
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
       },
 
     image: {
-        width: 200,
-        height: 200,
+        width: 400,
+        height: 400,
         resizeMode: 'contain',
     },
     title: {
