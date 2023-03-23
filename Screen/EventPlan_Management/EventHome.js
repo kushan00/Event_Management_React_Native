@@ -56,12 +56,12 @@ const EventHomeScreen = () => {
     return unsubscribe;
   }, []);
 
-  const invitationViewPage = () => {
-    navigation.navigate("InvitationHome");
+  const invitationViewPage = (selectedEvent2) => {
+    navigation.navigate("InvitationHome",{ event: selectedEvent2 });
   };
 
   const GuestListHome = () => {
-    navigation.navigate("GuestListHome");
+    navigation.navigate("GuestListHome",{ event: selectedEvent });
   };
   const PackageHomePage = () => {
     navigation.navigate("PackageHomePage");
@@ -157,7 +157,7 @@ const EventHomeScreen = () => {
                 />
               </View>
               <View style={styles.eventButtons}>
-                <TouchableOpacity style={styles.eventButton1} onPress={invitationViewPage}>
+                <TouchableOpacity style={styles.eventButton1} onPress={()=>invitationViewPage(event)}>
                   <Text>Invitation</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -167,7 +167,7 @@ const EventHomeScreen = () => {
                   <Text>Packages</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={GuestListHome}
+                  onPress={()=>GuestListHome(event)}
                   style={styles.eventButton3}
                 >
                   <Text>Guests</Text>
