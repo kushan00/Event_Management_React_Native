@@ -1,8 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-
 
 
 
@@ -18,54 +16,126 @@ const PackageHomePage = () => {
         navigation.navigate("ViewPackages");
     }
 
+    const MoreDetails = () => {
+        navigation.navigate("MoreDetails");
+    }
+
+    // const EventHeader = ({ navigation }) => {
+    //     return (
+    //       <View style={styles.appBar}>
+    //         <Image source={require('../../assets/logo.png')} style={styles.logo} />
+    //         <Text style={styles.appName}>Event Planner</Text>
+    //         <TouchableOpacity style={styles.signOutButton} onPress={() => {
+    //           removeData("token");
+    //           // navigation.navigate('LoginScreen');
+    //         }}>
+    //           <Text style={styles.signOutButtonText}>Sign Out</Text>
+    //         </TouchableOpacity>
+    //       </View>
+    //     );
+    //   };
+
     return (
 
-        <View style={styles.container}>
-           
-            <Text style={styles.title}>Package Home Page</Text>
+        <View style={styles.container} >
+            <ImageBackground
 
-            <Image
-                source={require('../../assets/music.png')}
-                style={styles.image}
-            />
+                source={require('../../assets/music01.png')}
+                style={styles.container}
 
-            <TouchableOpacity style={styles.button} onPress={AddPackages}>
-                <Text style={styles.buttonText}>Add new package</Text>
-            </TouchableOpacity>
+            >
+                {/* <Text style={styles.title}>ENTERTAINMENT PACKAGES</Text> */}
 
-            <TouchableOpacity style={styles.button} onPress={ViewPackages}>
-                <Text style={styles.buttonText}>View packages</Text>
-            </TouchableOpacity>
+                {/* <Image
+                    source={require('../../assets/music.png')}
+                    style={styles.image}
+                /> */}
+
+                <TouchableOpacity style={styles.button} onPress={AddPackages}>
+                    <Text style={styles.buttonText}>Add new package details</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={ViewPackages}>
+                    <Text style={styles.buttonText}>View packages detials</Text>
+                </TouchableOpacity>
+
+                {/* <TouchableOpacity style={styles.button} onPress={MoreDetails}>
+                    <Text style={styles.buttonText}>More details</Text>
+                </TouchableOpacity> */}
+            </ImageBackground>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#B4CCCC',
+        //backgroundColor: '#B4CCCC',
+        backgroundImage: 'url(../../assets/music01.png)',
+        width: '100%',
     },
+
+    appBar: {
+        backgroundColor: '#4285F4',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        height: 56,
+        top: 50
+      },
+      logo: {
+        width: 24,
+        height: 24,
+      },
+      appName: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 16,
+      },
+      signOutButton: {
+        backgroundColor: '#DB4437',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 4,
+      },
+      signOutButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+      signOutButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+
     image: {
-        width: 200,
-        height: 200,
+        width: 400,
+        height: 400,
         resizeMode: 'contain',
     },
     title: {
         fontSize: 26,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 50,
+        color: 'white',
+        fontFamily: 'sans-serif',
     },
     button: {
-        backgroundColor: '#6EB7C7',
+        backgroundColor: 'black',
         borderRadius: 10,
         padding: 10,
         marginBottom: 10,
-        width: 200,
+        width: 250,
+        borderWidth: 1,
+        borderColor: 'white',
+    
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',

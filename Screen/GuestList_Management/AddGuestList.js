@@ -108,14 +108,21 @@ const AddGuestList = ({route}) => {
 const styles = StyleSheet.create({
     container: {
         margin: 20,
+        padding: 16,
+      borderWidth: 3,
+      borderColor: 'black',
+      backgroundColor: 'white',
+      borderRadius: 8,
+      elevation: 4,
+      marginTop: 10,
     },
     input: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 5,
         padding: 10,
-        marginBottom: 10,
-        marginTop: 40,
+        marginBottom: 5,
+        marginTop: 5,
         marginBottom: 16,
         backgroundColor: 'white',
         height: 80,
@@ -136,9 +143,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         marginBottom: 20,
-        width: 350,
+        width: 300,
         alignItems: 'center',
-        marginLeft: 10,
+        marginLeft: 18,
+        borderWidth: 1,
+        borderColor: 'black',
         },
        
 });

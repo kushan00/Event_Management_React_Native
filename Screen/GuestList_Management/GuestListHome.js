@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const GuestListHome = ({route}) => {
@@ -17,21 +17,29 @@ const GuestListHome = ({route}) => {
     return (
 
         <View style={styles.container}>
-           
-            <Text style={styles.title}>Guest Home Page</Text>
 
-            <Image
+            <ImageBackground
+
+                source={require('../../assets/music01.png')}
+                style={styles.container}
+
+            >
+
+                {/* <Text style={styles.title}>Guest Home Page</Text> */}
+
+                {/* <Image
                 source={require('../../assets/music.png')}
                 style={styles.image}
-            />
+            /> */}
 
-            <TouchableOpacity style={styles.button} onPress={AddGuests}>
-                <Text style={styles.buttonText}>Add Guest</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={AddGuests}>
+                    <Text style={styles.buttonText}>Add Guest</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={ViewGuests}>
-                <Text style={styles.buttonText}>View Guests</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={ViewGuests}>
+                    <Text style={styles.buttonText}>View Guests</Text>
+                </TouchableOpacity>
+            </ImageBackground>
         </View>
     );
 };
@@ -41,11 +49,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#B4CCCC',
+        //backgroundColor: '#B4CCCC',
+        backgroundImage: 'url(../../assets/music01.png)',
+        width: '100%',
     },
     image: {
-        width: 200,
-        height: 200,
+        width: 400,
+        height: 400,
         resizeMode: 'contain',
     },
     title: {
@@ -54,11 +64,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: '#6EB7C7',
+        backgroundColor: 'black',
         borderRadius: 10,
         padding: 10,
         marginBottom: 10,
-        width: 200,
+        width: 250,
+        borderWidth: 1,
+        borderColor: 'white',
     },
     buttonText: {
         color: '#FFFFFF',
