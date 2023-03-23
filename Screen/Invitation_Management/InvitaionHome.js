@@ -109,6 +109,7 @@ const InvitationHome = ({route}) => {
                   <Text style={styles.invitationTitle}>{invitation.invitationTitle}</Text>
                   <Text style={styles.invitationDate}>{invitation.invitationDate}</Text>
                   <Text style={styles.invitationDate}>{invitation.invitationType}</Text>
+                  <Text style={{color : invitation.invitationStatus == "True" ? "green" : "red" , fontSize:18}}>{invitation.invitationStatus == "True" ? "Sent" : "Not Sent"}</Text>
                   <View style={styles.invitationExpanded}>
                     <Text>More details about the Invitation</Text>
                   </View>
@@ -129,21 +130,21 @@ const InvitationHome = ({route}) => {
                       }}
                     />
                   </View>
-                  <View style={styles.invitationButtons}>
+                  {/* <View style={styles.invitationButtons}>
                     <TouchableOpacity style={styles.invitationButton1}>
                       <Text style={{ color: 'white' }}>Invitation</Text>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </View>
               ))}
           </ScrollView>
-        </ImageBackground>
-            <TouchableOpacity
+          <TouchableOpacity
               onPress={addInvitation}
               style={styles.addButton}
             >
-              <Text style={styles.invitationTitle}>Add Invitation</Text>
+              <Text style={styles.buttonTitle}>Add Invitation</Text>
             </TouchableOpacity>
+        </ImageBackground>
       </View>
     </View>
   );
@@ -157,29 +158,30 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    top: 70,
+    top: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",
   },
   invitationContainer: {
-    //backgroundColor: "#B4CCCC",
     padding: 20,
     margin: 20,
-    //borderRadius: 5,
-    //borderWidth: 1,
-    //borderColor: "black",
     height: 650,
     borderColor: 'black',
     marginTop: -65,
     width: 420,
-    marginLeft: -4,
-   
+    marginLeft: -12,   
   },
   invitationTitle: {
     fontWeight: "bold",
     fontSize: 18,
     marginBottom: 10,
+  },
+  buttonTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 10,
+    color:"white"
   },
   invitationDate: {
     fontWeight: "bold",
@@ -228,12 +230,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    // marginTop: 10,
-    // backgroundColor: "#AB87FF",
-    // padding: 10,
-    // borderRadius: 10,
-    // marginHorizontal: 2,
-    // alignItems: "center",
     backgroundColor: 'black',
     borderRadius: 10,
     padding: 10,
