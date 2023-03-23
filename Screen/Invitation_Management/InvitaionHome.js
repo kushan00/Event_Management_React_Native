@@ -17,7 +17,9 @@ import { IconButton } from "react-native-paper";
 // Define the Firebase Firestore collection where the invitations data is stored
 const invitationsCollection = firebase.firestore().collection("invitations");
 
-const InvitationHome = () => {
+const InvitationHome = ({route}) => {
+    const  event  = route.params.event;
+
   const [invitations, setInvitations] = useState([]);
   const [selectedInvitation, setSelectedInvitation] = useState(null);
   const navigation = useNavigation();
@@ -73,17 +75,12 @@ const InvitationHome = () => {
   };
 
   const addInvitation = () => {
-    navigation.navigate("AddInvitation");
+    console.log("event", event);
+    navigation.navigate("AddInvitation",{ event: event });
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={addInvitation}
-        style={styles.addButton}
-      >
-        <Text style={{ color: 'white' }}>Add Invitation</Text>
-      </TouchableOpacity>
       <View style={styles.invitationContainer}>
         <ImageBackground
 
@@ -93,7 +90,6 @@ const InvitationHome = () => {
         >
 
           <ScrollView>
-
             {invitations.length == 0 ?
               <View style={styles.invitation2}>
                 <Text style={styles.invitationTitle2}>No invitations</Text>
@@ -110,8 +106,10 @@ const InvitationHome = () => {
                   ]}
                   onTouchEnd={() => handleInvitationPress(invitation)}
                 >
-                  <Text style={styles.invitationTitle}>{invitation.invitationName}</Text>
-                  <Text style={styles.invitationDate}>{invitation.date}</Text>
+                  <Text style={styles.invitationTitle}>{invitation.invitationTitle}</Text>
+                  <Text style={styles.invitationDate}>{invitation.invitationDate}</Text>
+                  <Text style={styles.invitationDate}>{invitation.invitationType}</Text>
+                  <Text style={{color : invitation.invitationStatus == "True" ? "green" : "red" , fontSize:18}}>{invitation.invitationStatus == "True" ? "Sent" : "Not Sent"}</Text>
                   <View style={styles.invitationExpanded}>
                     <Text>More details about the Invitation</Text>
                   </View>
@@ -132,14 +130,20 @@ const InvitationHome = () => {
                       }}
                     />
                   </View>
-                  <View style={styles.invitationButtons}>
+                  {/* <View style={styles.invitationButtons}>
                     <TouchableOpacity style={styles.invitationButton1}>
                       <Text style={{ color: 'white' }}>Invitation</Text>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </View>
               ))}
           </ScrollView>
+          <TouchableOpacity
+              onPress={addInvitation}
+              style={styles.addButton}
+            >
+              <Text style={styles.buttonTitle}>Add Invitation</Text>
+            </TouchableOpacity>
         </ImageBackground>
       </View>
     </View>
@@ -154,28 +158,34 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    top: 70,
+    top: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",
   },
   invitationContainer: {
-    //backgroundColor: "#B4CCCC",
     padding: 20,
     margin: 20,
-    //borderRadius: 5,
-    //borderWidth: 1,
-    //borderColor: "black",
     height: 650,
     borderColor: 'black',
     marginTop: -65,
     width: 420,
-    marginLeft: -4,
-   
+    marginLeft: -12,   
   },
   invitationTitle: {
     fontWeight: "bold",
     fontSize: 18,
+    marginBottom: 10,
+  },
+  buttonTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 10,
+    color:"white"
+  },
+  invitationDate: {
+    fontWeight: "bold",
+    fontSize: 15,
     marginBottom: 10,
   },
   invitationDetails: {
@@ -220,12 +230,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    // marginTop: 10,
-    // backgroundColor: "#AB87FF",
-    // padding: 10,
-    // borderRadius: 10,
-    // marginHorizontal: 2,
-    // alignItems: "center",
     backgroundColor: 'black',
     borderRadius: 10,
     padding: 10,
@@ -236,6 +240,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   invitation: {
+    borderWidth:1,
+    borderRadius:10,
     margin: 20,
     padding: 5,
     backgroundColor: "#F4EEF9",
@@ -249,6 +255,7 @@ const styles = StyleSheet.create({
   invitationTitle2: {
     fontWeight: "bold",
     fontSize: 20,
+    color:"white"
   },
   selectedInvitation: {
     backgroundColor: "#B27BDB",

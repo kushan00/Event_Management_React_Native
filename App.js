@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import SplashScreen from './Screen/CommonScreens/SplashScreen';
 import EventHomeScreen from './Screen/EventPlan_Management/EventHome';
-//import Detail from './Screen/UpdateToDoList';
 import LoginScreen from "./Screen/Auth/Login";
 import RegisterScreen from './Screen/Auth/Register';
 
@@ -34,6 +33,7 @@ import UpdateEvent from './Screen/EventPlan_Management/UpdateEvent';
 import InvitationHome from './Screen/Invitation_Management/InvitaionHome';
 import AddInvitation from './Screen/Invitation_Management/AddInvitation';
 import UpdateInvitation from './Screen/Invitation_Management/UpdateInvitation';
+import OnboardingScreen from './Screen/CommonScreens/BoardingScreen';
 
 const Stack = createStackNavigator()
 
@@ -53,7 +53,7 @@ export default function App() {
         <TouchableOpacity style={styles.signOutButton} onPress={() => {
           removeData("token");
           removeData("uid");
-          //navigation.navigate('LoginScreen');
+          navigation.navigate('LoginScreen');
         }}>
           <Text style={styles.signOutButtonText}>Sign Out</Text>
         </TouchableOpacity>
@@ -80,28 +80,26 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Spalsh" >
         <Stack.Screen name='Spalsh' component={SplashScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='BoardingScreen' component={OnboardingScreen} options={{ headerShown: false }} />
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }} />
 
-        {/* <Stack.Screen name='Detail' component={Detail} /> */}
+
 
         <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ header: () => <EventHeader /> }} />
         <Stack.Screen name='ViewPackages' component={ViewPackages}  options={{ header: () => <EventHeader /> }}  />
         <Stack.Screen name='AddPackages' component={AddPackages} options={{ header: () => <EventHeader /> }} />
         <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
 
-
-        {/* <Stack.Screen name='ViewPackages'component={ViewPackages} options={{ headerShown: true , title:"Packages Home" }}/> */}
-
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
 
-        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: (navigation) => <EventHeader {...navigation}/> }} />
         <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
         <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
 
-        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"My Invitations" }} />
+        <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"Event Invitations" }} />
         <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
         <Stack.Screen name='UpdateInvitation'component={UpdateInvitation} options={{ headerShown: true , title:"Update Invitation" }}/>
 

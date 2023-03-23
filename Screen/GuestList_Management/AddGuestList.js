@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, Alert ,TouchableOpacity, Text, ScrollView} from 'react-native';
 import { firebase } from '../../config';
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddGuestList = ({navigation}) => {
-
+const AddGuestList = ({route}) => {
+    const  event  = route.params.event;
+    
     const [guestName, setGuestName] = useState('');
     const [guestEmail, setGuestEmail] = useState('');
     const [guestMobileNumber, setGuestMobileNumber] = useState('');
@@ -11,8 +14,10 @@ const AddGuestList = ({navigation}) => {
     const [guestNic, setGuestNic] = useState('');
     const [guestGender, setGuestGender] = useState('');
 
+    const navigation = useNavigation();
 
     const handleSave = async () => {
+        console.log("event", event);
         try {
             await firebase.firestore().collection('guests').add({
                 guestName,
@@ -21,7 +26,10 @@ const AddGuestList = ({navigation}) => {
                 guestAge,
                 guestNic,
                 guestGender,
-                // EventId,               
+                EventId: event?.id,   
+                user_id: await AsyncStorage.getItem("uid") != null
+                ? await AsyncStorage.getItem("uid")
+                : "no user id",            
             });
 
 
@@ -33,9 +41,8 @@ const AddGuestList = ({navigation}) => {
             setGuestAge('');
             setGuestNic('');
             setGuestGender('');
-            // setEventId('');
 
-            navigation.navigate("PackageHomePage");
+            navigation.navigate("Home");
             
         } catch (error) {
             Alert.alert('Error', error.message);
