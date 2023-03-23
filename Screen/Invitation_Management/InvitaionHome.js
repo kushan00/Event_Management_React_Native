@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
   invitationTitle2: {
     fontWeight: "bold",
     fontSize: 20,
+    color:"white"
   },
   selectedInvitation: {
     backgroundColor: "#B27BDB",

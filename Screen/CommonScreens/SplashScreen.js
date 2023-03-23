@@ -16,7 +16,7 @@ const  SplashScreen = ()=> {
       console.log("Token", await AsyncStorage.getItem("token") == null ? "false" : "true");
         await AsyncStorage.getItem("token") == null 
         ? 
-        navigation.navigate('LoginScreen') 
+        navigation.navigate('BoardingScreen') 
         :
         navigation.navigate('Home');
       }, 3000);

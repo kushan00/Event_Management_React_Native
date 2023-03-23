@@ -42,7 +42,7 @@ const UpdateInvitation = ({ route }) => {
   };
 
   const cancel = () => {
-    navigation.navigate("InvitationHome");
+    navigation.navigate("InvitationHome",{event:invitation});
   };
 
   return (
