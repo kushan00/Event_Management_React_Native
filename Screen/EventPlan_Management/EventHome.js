@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Image,
   Alert,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
@@ -58,11 +58,11 @@ const EventHomeScreen = () => {
   }, []);
 
   const invitationViewPage = (selectedEvent2) => {
-    navigation.navigate("InvitationHome",{ event: selectedEvent2 });
+    navigation.navigate("InvitationHome", { event: selectedEvent2 });
   };
 
   const GuestListHome = () => {
-    navigation.navigate("GuestListHome",{ event: selectedEvent });
+    navigation.navigate("GuestListHome", { event: selectedEvent });
   };
   const PackageHomePage = () => {
     navigation.navigate("PackageHomePage");
@@ -105,32 +105,26 @@ const EventHomeScreen = () => {
   };
 
   const addEvent = () => {
+    console.log("Add Event");
     navigation.navigate("AddEvents");
   };
 
   return (
     <View style={styles.container}>
-
-      <TouchableOpacity
-        onPress={addEvent}
-        style={styles.addButton}
-      >
-        <Text style={{ color: 'white' }}>Add Event</Text>
-      </TouchableOpacity>
       <View style={styles.eventContainer}>
+        <TouchableOpacity onPress={addEvent} style={styles.addButton}>
+          <Text style={{ color: "white" }}>Add Event</Text>
+        </TouchableOpacity>
         <ImageBackground
-
-          source={require('../../assets/music01.png')}
+          source={require("../../assets/music01.png")}
           style={styles.container}
-
         >
           <ScrollView>
-
-            {events.length == 0 ?
+            {events.length == 0 ? (
               <View style={styles.event2}>
                 <Text style={styles.eventTitle2}>No Events</Text>
               </View>
-              :
+            ) : (
               events.map((event) => (
                 <View
                   key={event.id}
@@ -165,24 +159,28 @@ const EventHomeScreen = () => {
                     />
                   </View>
                   <View style={styles.eventButtons}>
-                    <TouchableOpacity style={styles.eventButton1} onPress={()=>invitationViewPage(event)}>
-                      <Text style={{ color: 'white' }}>Invitation</Text>
+                    <TouchableOpacity
+                      style={styles.eventButton1}
+                      onPress={() => invitationViewPage(event)}
+                    >
+                      <Text style={{ color: "white" }}>Invitation</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={PackageHomePage}
                       style={styles.eventButton2}
                     >
-                      <Text style={{ color: 'white' }}>Packages</Text>
+                      <Text style={{ color: "white" }}>Packages</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={GuestListHome}
                       style={styles.eventButton3}
                     >
-                      <Text style={{ color: 'white' }}>Guests</Text>
+                      <Text style={{ color: "white" }}>Guests</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
-              ))}
+              ))
+            )}
           </ScrollView>
         </ImageBackground>
       </View>
@@ -212,7 +210,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     height: 650,
     marginTop: -50,
-
   },
   eventTitle: {
     fontWeight: "bold",
@@ -233,24 +230,24 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   eventButton1: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
     flex: 1,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
   eventButton2: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
     flex: 1,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
   eventButton3: {
     // backgroundColor: "#18f541",
@@ -259,29 +256,29 @@ const styles = StyleSheet.create({
     // flex: 1,
     // marginHorizontal: 2,
     // alignItems: "center",
-    backgroundColor: 'black',
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
     flex: 1,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
   addButton: {
-    marginTop: 10,
+    marginTop: 60,
     // backgroundColor: "#AB87FF",
     borderRadius: 10,
     marginHorizontal: 2,
     alignItems: "center",
-    marginBottom: 10,
-    backgroundColor: 'black',
+    // marginBottom: 10,
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 2,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
   event: {
     margin: 20,
