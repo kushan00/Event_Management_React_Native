@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, Button, Alert ,TouchableOpacity, Text, Scr
 import { firebase } from '../../config';
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from "@react-native-picker/picker";
 
 const AddGuestList = ({route}) => {
     const  event  = route.params.event;
@@ -12,7 +13,7 @@ const AddGuestList = ({route}) => {
     const [guestMobileNumber, setGuestMobileNumber] = useState('');
     const [guestAge, setGuestAge] = useState('');
     const [guestNic, setGuestNic] = useState('');
-    const [guestGender, setGuestGender] = useState('');
+    const [guestGender, setGuestGender] = useState("");
 
     const navigation = useNavigation();
 
@@ -68,11 +69,13 @@ const AddGuestList = ({route}) => {
                 placeholder="Guest Mobile Number"
                 value={guestMobileNumber}
                 onChangeText={setGuestMobileNumber}
+                keyboardType='numeric'
                 style={styles.input}
                 />
                 <TextInput
                 placeholder="Guest Age"
                 value={guestAge}
+                keyboardType='numeric'
                 onChangeText={setGuestAge}
                 style={styles.input}
                 />
@@ -82,12 +85,23 @@ const AddGuestList = ({route}) => {
                 onChangeText={setGuestNic}
                 style={styles.input}
                 />
-                <TextInput
+                {/* <TextInput
                 placeholder="Guest Gender"
                 value={guestGender}
                 onChangeText={setGuestGender}
                 style={styles.input}
-                />
+                /> */}
+                <Picker
+                style={styles.input}
+                selectedValue={guestGender}
+                onValueChange={(itemValue) => setGuestGender(itemValue)}
+                >
+                <Picker.Item label="Select Gender" value="" />
+                <Picker.Item label="Male" value="Male" />
+                <Picker.Item label="Female" value="Female" />
+                <Picker.Item label="Other" value="Other" />
+
+                </Picker>
                 {/* <Button title="Save" style={styles.button} onPress={handleSave} />
                 <Button title="Back" style={styles.backbutton} onPress={handleSave} /> */}
 
