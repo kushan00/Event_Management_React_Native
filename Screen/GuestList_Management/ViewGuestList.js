@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Modal, StyleSheet, ImageBackground, View ,ScrollView} from 'react-native';
+import { Alert, Modal, StyleSheet, ImageBackground, View ,ScrollView, TouchableOpacity} from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import { Picker } from "@react-native-picker/picker";
@@ -65,7 +65,7 @@ const handleDeleteGuest = () => {
       });
       setModalVisible(false);
       setSelectedGuest(null);
-      Alert.alert('Guest updated successfully');
+      Alert.alert('Guest details updated successfully!');
     }
   };
 
@@ -88,10 +88,18 @@ const handleDeleteGuest = () => {
       borderWidth: 1,
       elevation: 4,
     },
-    guestData: {
-      fontSize: 24,
+    fieldContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    fieldLabel: {
+      width: 100,
       fontWeight: 'bold',
-      marginBottom: 8,
+    },
+    guestData: {
+      flex: 1,
+      marginLeft: 10,
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -99,8 +107,13 @@ const handleDeleteGuest = () => {
       marginTop: 16,
     },
     button: {
-      marginLeft: 8,
       backgroundColor: '#6EB7C7',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 20,
+      width: 300,
+      alignItems: 'center',
+      marginLeft: 18,
       borderWidth: 1,
       borderColor: 'black',
     },
@@ -114,19 +127,35 @@ const handleDeleteGuest = () => {
       borderWidth: 3,
       borderColor: 'black',
       alignContent: 'center',
-      
-     
     },
+
+    label: {
+      marginRight: 10,
+      fontSize: 12,
+      fontWeight: 'bold',
+      color: '#333',
+    },
+
     input: {
+      borderWidth: 2,
+      borderColor: '#ccc',
+      borderRadius: 5,
+      marginBottom: 5,
+      marginTop: 5,
       marginBottom: 16,
       backgroundColor: 'white',
-      height: 80,
+      height: 50,
     },
     descriptionInput: {
       marginBottom: 16,
       backgroundColor: 'white',
       height: 250,
     },
+    updateheader: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 8,
+    }
   });
 
   return (
@@ -144,12 +173,35 @@ style={styles.container}
           style={styles.guestListBox}
           onTouchEnd={() => setSelectedGuest(guest)}
         >
+         <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>Name:</Text>
           <Text style={styles.guestData}>{guest.guestName}</Text>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>Email:</Text>
           <Text style={styles.guestData}>{guest.guestEmail}</Text>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>Mobile Number:</Text>
           <Text style={styles.guestData}>{guest.guestMobileNumber}</Text>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>Age:</Text>
           <Text style={styles.guestData}>{guest.guestAge}</Text>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>NIC:</Text>
           <Text style={styles.guestData}>{guest.guestNic}</Text>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldLabel}>Gender:</Text>
           <Text style={styles.guestData}>{guest.guestGender}</Text>
+        </View>
 
           <View style={styles.buttonContainer}>
             <IconButton
@@ -180,8 +232,8 @@ style={styles.container}
       <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
       <ScrollView>
         <View style={styles.modalContainer}>
-          <Text style={styles.guestName}>{selectedGuest?.guestName}</Text>
-          <TextInput
+          <Text style={styles.updateheader}>Edit {selectedGuest?.guestName}</Text>
+          {/* <TextInput
             label="Guest Name"
             value={guestName}
             onChangeText={setGuestName}
@@ -210,13 +262,45 @@ style={styles.container}
             value={guestNic}
             onChangeText={setGuestNic}
             style={styles.input}
-            />
-            {/* <TextInput
-            label="Guest Gender"
-            value={guestGender}
-            onChangeText={setGuestGender}
-            style={styles.input}
             /> */}
+
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+                placeholder="Name"
+                value={guestName}
+                onChangeText={setGuestName}
+                style={styles.input}
+                />
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                placeholder="Email"
+                value={guestEmail}
+                onChangeText={setGuestEmail}
+                style={styles.input}
+                />
+                <Text style={styles.label}>Mobile Number</Text>
+                <TextInput
+                placeholder="Mobile Number"
+                value={guestMobileNumber}
+                onChangeText={setGuestMobileNumber}
+                keyboardType='numeric'
+                style={styles.input}
+                />
+                <Text style={styles.label}>Age</Text>
+                <TextInput
+                placeholder="Age"
+                value={guestAge}
+                keyboardType='numeric'
+                onChangeText={setGuestAge}
+                style={styles.input}
+                />
+                <Text style={styles.label}>NIC</Text>
+                <TextInput
+                placeholder="NIC"
+                value={guestNic}
+                onChangeText={setGuestNic}
+                style={styles.input}
+                />         
 
             <Picker
             style={styles.input}
@@ -230,14 +314,24 @@ style={styles.container}
 
             </Picker>
 
-          <View style={styles.buttonContainer}>
+          {/* <View style={styles.buttonContainer}>
             <Button mode="contained" onPress={() => setModalVisible(false)} style={styles.button}>
               Cancel
             </Button>
             <Button mode="contained" onPress={handleUpdateGuest} style={styles.button}>
               Update
             </Button>
-          </View>
+          </View> */}
+
+            <TouchableOpacity style={styles.button} onPress={handleUpdateGuest}>
+                <Text style={styles.buttonText}>Update</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={() => setModalVisible(false)}>
+                <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
+
+
         </View>
         
         </ScrollView>
