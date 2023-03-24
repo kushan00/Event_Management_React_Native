@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, Alert, TouchableOpacity, Text } from 'react-native';
 import { firebase } from '../../config';
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
 const AddPackages = () => {
     const [packageName, setPackageName] = useState('');
     const [packageDescription, setPackageDescription] = useState('');
     const [packagePrice, setPackagePrice] = useState('');
+    //const [eventPackage, setEventPackage] = useState("");
+
 
     const navigation = useNavigation();
 
@@ -32,15 +35,35 @@ const AddPackages = () => {
 
         <View style={styles.container}>
             <Text style={styles.newpackage}>New Package Deatils</Text>
-            <Text>Enter Package Name</Text>
-            <TextInput
+            <Text>Enter Package Type</Text>
+            {/* <TextInput
                 style={styles.input}
                 placeholder="Package Name"
                 value={packageName}
                 onChangeText={setPackageName}
-            />
-            <Text>Enter Package Description</Text>
+            /> */}
             <Picker
+                style={styles.input}
+                selectedValue={packageName}
+                onValueChange={(itemValue) => setPackageName(itemValue)}
+            >
+                {/* <Picker.Item label="Select Package Type" value="" /> */}
+
+                <Picker.Item label="Select Package Type" value="" />
+                <Picker.Item label="Jwellery and Dressing package" value="Jwellery and Dressing package" />
+                <Picker.Item label="Food and beverages package" value="Food and beverages package" />
+                <Picker.Item label="Music package" value="Music package" />
+                <Picker.Item label="Dancing groups package" value="Dancing Groups package" />
+                <Picker.Item label="Decoration package" value="Conference" />
+                <Picker.Item label="Games package" value="Games package" />
+                <Picker.Item label="Photography package" value="Photography package" />
+                <Picker.Item label="Catering package" value="Catering package" />
+                <Picker.Item label="Venue package" value="Venue package" />
+                <Picker.Item label="Magician and Comedians package" value="Magician and Comedians package" />
+                <Picker.Item label="Other" value="Other" />
+            </Picker>
+            <Text>Enter Package Description</Text>
+            <TextInput
                 style={styles.descriptionInput}
                 placeholder="Description"
                 value={packageDescription}
@@ -80,7 +103,7 @@ const styles = StyleSheet.create({
         elevation: 4,
         marginTop: 30,
         marginTop: 60,
-      
+
     },
     input: {
         borderWidth: 2,
