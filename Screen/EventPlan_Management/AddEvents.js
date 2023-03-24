@@ -5,6 +5,7 @@ import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const AddEvent = () => {
   const [eventName, setEventName] = useState("");
   const [venue, setVenue] = useState("");
