@@ -1,5 +1,5 @@
 import { useState} from "react";
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View , Image} from "react-native";
 import { firebase ,auth} from '../../config';
 import { useNavigation } from '@react-navigation/native';
 import { storeData } from '../AsyncStorage/Storage';
@@ -13,7 +13,7 @@ const  LoginScreen = () => {
     const userRef = firebase.firestore().collection('users');
 
  
-    const handleRegisterPage = ()=>{
+    const handleRegisterPage = () => {
         navigation.navigate("RegisterScreen");
     }
 
@@ -22,7 +22,7 @@ const  LoginScreen = () => {
             .signInWithEmailAndPassword(email, password)
             .then(userCrds => {
                 const user = userCrds.user;
-                console.log('Logged user: ', user);
+                console.log('Logged user: ', user?.uid);
                 userRef
                     .orderBy('createdAt', 'desc')
                     .onSnapshot( 
@@ -34,11 +34,8 @@ const  LoginScreen = () => {
                             if(user2.email == user?.email)
                             {
                                 storeData("token", user?.email);
+                                storeData("uid",user?.uid);
                                 navigation.navigate("Home");
-                            }
-                            else
-                            {
-                                alert("User Not Found");
                             }
                         })
                     })        
@@ -54,16 +51,10 @@ const  LoginScreen = () => {
             style={styles.container}
             behavior={'padding'}
         >
-             <Text style={{
-        fontSize: 40,
-        fontWeight: "600",
-        textAlign: "center",
-        color: "#000000",
-        marginTop: "35%",
-        marginBottom: "5%"
-      }}>
-        Event Management
-      </Text>
+        <Image source={require('../../assets/logo-bgremove.png')} style={{
+            width: 200,
+            height: 200,
+        }} />
             <View
                 style={styles.inputContainer}
             >

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, Alert ,TouchableOpacity, Text, ScrollView} from 'react-native';
 import { firebase } from '../../config';
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddGuestList = ({navigation}) => {
-
+const AddGuestList = ({route}) => {
+    const  event  = route.params.event;
+    
     const [guestName, setGuestName] = useState('');
     const [guestEmail, setGuestEmail] = useState('');
     const [guestMobileNumber, setGuestMobileNumber] = useState('');
@@ -11,8 +14,10 @@ const AddGuestList = ({navigation}) => {
     const [guestNic, setGuestNic] = useState('');
     const [guestGender, setGuestGender] = useState('');
 
+    const navigation = useNavigation();
 
     const handleSave = async () => {
+        console.log("event", event);
         try {
             await firebase.firestore().collection('guests').add({
                 guestName,
@@ -21,7 +26,10 @@ const AddGuestList = ({navigation}) => {
                 guestAge,
                 guestNic,
                 guestGender,
-                // EventId,               
+                EventId: event?.id,   
+                user_id: await AsyncStorage.getItem("uid") != null
+                ? await AsyncStorage.getItem("uid")
+                : "no user id",            
             });
 
 
@@ -33,9 +41,8 @@ const AddGuestList = ({navigation}) => {
             setGuestAge('');
             setGuestNic('');
             setGuestGender('');
-            // setEventId('');
 
-            navigation.navigate("PackageHomePage");
+            navigation.navigate("Home");
             
         } catch (error) {
             Alert.alert('Error', error.message);
@@ -101,14 +108,21 @@ const AddGuestList = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         margin: 20,
+        padding: 16,
+      borderWidth: 3,
+      borderColor: 'black',
+      backgroundColor: 'white',
+      borderRadius: 8,
+      elevation: 4,
+      marginTop: 10,
     },
     input: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 5,
         padding: 10,
-        marginBottom: 10,
-        marginTop: 40,
+        marginBottom: 5,
+        marginTop: 5,
         marginBottom: 16,
         backgroundColor: 'white',
         height: 80,
@@ -129,9 +143,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         marginBottom: 20,
-        width: 350,
+        width: 300,
         alignItems: 'center',
-        marginLeft: 10,
+        marginLeft: 18,
+        borderWidth: 1,
+        borderColor: 'black',
         },
        
 });
