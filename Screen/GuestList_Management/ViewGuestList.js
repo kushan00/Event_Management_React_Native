@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Modal, StyleSheet, ImageBackground, View ,ScrollView} from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
+import { Picker } from "@react-native-picker/picker";
 import 'firebase/firestore';
 
 // Define the Firebase Firestore collection where the guests data is stored
@@ -78,7 +79,7 @@ const handleDeleteGuest = () => {
       borderRadius: 8,
       elevation: 4,
     },
-    packageBox: {
+    guestListBox: {
       backgroundColor: '#CFC9E1',
       padding: 10,
       marginBottom: 16,
@@ -91,15 +92,6 @@ const handleDeleteGuest = () => {
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 8,
-    },
-    packageDescription: {
-      fontSize: 16,
-      marginBottom: 8,
-    },
-    packagePrice: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      // textAlign: 'right',
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -149,7 +141,7 @@ style={styles.container}
       {guests.map((guest) => (
         <View
           key={guest.id}
-          style={styles.packageBox}
+          style={styles.guestListBox}
           onTouchEnd={() => setSelectedGuest(guest)}
         >
           <Text style={styles.guestData}>{guest.guestName}</Text>
@@ -189,8 +181,6 @@ style={styles.container}
       <ScrollView>
         <View style={styles.modalContainer}>
           <Text style={styles.guestName}>{selectedGuest?.guestName}</Text>
-          {/* <Text style={styles.packageDescription}>{selectedPackage?.packageDescription}</Text>
-          <Text style={styles.packagePrice}> {selectedPackage?.packagePrice}</Text> */}
           <TextInput
             label="Guest Name"
             value={guestName}
@@ -221,12 +211,24 @@ style={styles.container}
             onChangeText={setGuestNic}
             style={styles.input}
             />
-            <TextInput
+            {/* <TextInput
             label="Guest Gender"
             value={guestGender}
             onChangeText={setGuestGender}
             style={styles.input}
-            />
+            /> */}
+
+            <Picker
+            style={styles.input}
+            selectedValue={guestGender}
+            onValueChange={(itemValue) => setGuestGender(itemValue)}
+            >
+            <Picker.Item label="Select Gender" value="" />
+            <Picker.Item label="Male" value="Male" />
+            <Picker.Item label="Female" value="Female" />
+            <Picker.Item label="Other" value="Other" />
+
+            </Picker>
 
           <View style={styles.buttonContainer}>
             <Button mode="contained" onPress={() => setModalVisible(false)} style={styles.button}>

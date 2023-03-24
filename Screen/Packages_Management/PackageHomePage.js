@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import PackageDetails from './PackageDetails';
 
 
 
@@ -16,9 +17,14 @@ const PackageHomePage = () => {
         navigation.navigate("ViewPackages");
     }
 
-    const MoreDetails = () => {
-        navigation.navigate("MoreDetails");
+    const PackageDetails = () => {
+        navigation.navigate("PackageDetails");
     }
+
+    const ViewPayment = () => {
+        navigation.navigate("ViewPayment");
+    }
+
 
     // const EventHeader = ({ navigation }) => {
     //     return (
@@ -59,9 +65,13 @@ const PackageHomePage = () => {
                     <Text style={styles.buttonText}>View packages detials</Text>
                 </TouchableOpacity>
 
-                {/* <TouchableOpacity style={styles.button} onPress={MoreDetails}>
-                    <Text style={styles.buttonText}>More details</Text>
-                </TouchableOpacity> */}
+                <TouchableOpacity style={styles.button} onPress={PackageDetails}>
+                    <Text style={styles.buttonText}>Add Payment Details</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={ViewPayment}>
+                    <Text style={styles.buttonText}>View Payment Details</Text>
+                </TouchableOpacity>
             </ImageBackground>
         </View>
     );
@@ -86,31 +96,31 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         height: 56,
         top: 50
-      },
-      logo: {
+    },
+    logo: {
         width: 24,
         height: 24,
-      },
-      appName: {
+    },
+    appName: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
         marginLeft: 16,
-      },
-      signOutButton: {
+    },
+    signOutButton: {
         backgroundColor: '#DB4437',
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 4,
-      },
-      signOutButtonText: {
+    },
+    signOutButtonText: {
         color: '#fff',
         fontWeight: 'bold',
-      },
-      signOutButtonText: {
+    },
+    signOutButtonText: {
         color: '#fff',
         fontWeight: 'bold',
-      },
+    },
 
     image: {
         width: 400,
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
         width: 250,
         borderWidth: 1,
         borderColor: 'white',
-    
+
     },
     buttonText: {
         color: 'white',
