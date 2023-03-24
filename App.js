@@ -103,8 +103,8 @@ export default function App() {
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
 
         <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: (navigation) => <EventHeader {...navigation}/> }} />
-        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
-        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
+        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Event" }}/>
+        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Event" }}/>
 
         <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"Event Invitations" }} />
         <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>

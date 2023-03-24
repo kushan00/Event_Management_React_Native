@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { firebase } from "../../config";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 
 const UpdateEvent = ({ route }) => {
-  const  event  = route.params.event;
+  const event = route.params.event;
   const [eventName, setEventName] = useState(event.eventName);
   const [venue, setVenue] = useState(event.venue);
   const [description, setDescription] = useState(event.description);
@@ -33,10 +40,10 @@ const UpdateEvent = ({ route }) => {
         date,
         eventType,
       })
-      .then(
-        () => console.log("Event successfully updated!"),
-        navigation.navigate("Home")
-      )
+      .then(() => {
+        console.log("Event successfully updated!");
+        navigation.navigate("Home");
+      })
       .catch((error) => console.log(error));
   };
 
@@ -88,12 +95,15 @@ const UpdateEvent = ({ route }) => {
         <Picker.Item label="Party" value="Party" />
       </Picker>
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={cancel} style={styles.button} />
-        <Button
-          title="Update Event"
+        <TouchableOpacity style={styles.cancelButton} onPress={cancel}>
+          <Text style={styles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.updateButton}
           onPress={handleUpdateEvent}
-          style={styles.button}
-        />
+        >
+          <Text style={styles.buttonText}>Update Event</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -102,25 +112,44 @@ const UpdateEvent = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
   },
   input: {
-    width: "90%",
-    marginBottom: 10,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ccc",
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderRadius: 5,
+    marginVertical: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
   },
   buttonContainer: {
-    width: "40%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginTop: 20,
   },
-  button: {
-    marginLeft: 8,
+  cancelButton: {
+    backgroundColor: "#ccc",
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: 10,
+  },
+  updateButton: {
     backgroundColor: "#6EB7C7",
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 
