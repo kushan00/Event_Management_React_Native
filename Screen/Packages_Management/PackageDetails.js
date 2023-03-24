@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Modal, StyleSheet, View, ScrollView, ImageBackground,Picker} from 'react-native';
+import { Alert, Modal, StyleSheet, View, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import 'firebase/firestore';
+import { Picker } from "@react-native-picker/picker";
 
 // Define the Firebase Firestore collection where the packages data is stored
 const packagesCollection = firebase.firestore().collection('packages');
 
-const ViewPackages = () => {
+const PackageDetails = () => {
   const [packages, setPackages] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [packageName, setPackageName] = useState('');
   const [packageDescription, setPackageDescription] = useState('');
   const [packagePrice, setPackagePrice] = useState('');
+  const [paymentDate, setPaymentDate] = useState('');
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState('');
   const [text, setText] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+
+  //date picker
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+  }
+
 
   // Load the packages data from Firestore on component mount
   useEffect(() => {
@@ -56,6 +70,9 @@ const ViewPackages = () => {
         packageName,
         packageDescription,
         packagePrice,
+        paymentDate,
+        paymentAmount,
+        paymentStatus
       });
       setModalVisible(false);
       setSelectedPackage(null);
@@ -64,10 +81,10 @@ const ViewPackages = () => {
   };
 
 
-  
-    const onChangeText = (newText) => {
-      setText(newText);
-    };
+
+  const onChangeText = (newText) => {
+    setText(newText);
+  };
 
   //event header
   const EventHeader = ({ navigation }) => {
@@ -99,7 +116,7 @@ const ViewPackages = () => {
 
     },
     packageBox: {
-      backgroundColor: '#CFC9E1',
+      backgroundColor: '#EFAEAE',
       padding: 10,
       marginBottom: 16,
       borderRadius: 8,
@@ -112,9 +129,17 @@ const ViewPackages = () => {
     packageName: {
       fontSize: 20,
       fontWeight: 'bold',
+      marginBottom: 18,
+      color: 'red',
+      textDecorationLine: 'none',
+    },
+    packageName1: {
+      fontSize: 20,
+      fontWeight: 'bold',
       marginBottom: 8,
-      color: '#3D0B66',
-      textDecorationLine: 'underline',
+      color: 'black',
+      textDecorationLine: 'none',
+      textAlign: 'center',
     },
     packageDescription: {
       fontSize: 16,
@@ -124,7 +149,26 @@ const ViewPackages = () => {
     packagePrice: {
       fontSize: 18,
       fontWeight: 'bold',
-      // textAlign: 'right',
+      //textAlign: 'right',
+    },
+    packagePrice1: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 18,
+      color: 'white',
+    },
+    packagePrice2: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 8,
+      color: 'black',
+    },
+    title1: {
+      ontSize: 18,
+      fontWeight: 'bold',
+      
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -169,7 +213,26 @@ const ViewPackages = () => {
       marginTop: 5,
       marginBottom: 16,
       backgroundColor: 'white',
-      height: 80,
+      height: 20,
+    },
+
+    paymentbutton: {
+      backgroundColor: 'black',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 20,
+      width: 250,
+      borderWidth: 1,
+      borderColor: 'white',
+      alignItems: 'center',
+      marginLeft: 38,
+    },
+
+    buttonText: {
+      color: 'white',
+      fontSize: 12,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
     descriptionInput: {
       borderWidth: 2,
@@ -246,6 +309,9 @@ const ViewPackages = () => {
         style={styles.container}
 
       >
+
+        <Text style={styles.packagePrice1}>Add Payment Details To Relevant Package</Text>
+
         <ScrollView>
 
           {packages.map((pkg) => (
@@ -264,9 +330,10 @@ const ViewPackages = () => {
 
             >
 
-              <Text style={styles.packageName}>{pkg.packageName}</Text>
-              <Text style={styles.packageDescription}>{pkg.packageDescription}</Text>
-              <Text style={styles.packagePrice}>Rs. {pkg.packagePrice}</Text>
+
+              <Text style={styles.packageName1}>{pkg.packageName}</Text>
+              {/* <Text style={styles.packageDescription}>{pkg.packageDescription}</Text> */}
+              <Text style={styles.packagePrice2}>Rs. {pkg.packagePrice}</Text>
 
               {/* <TextInput
                 style={styles.inputSomething}
@@ -274,28 +341,35 @@ const ViewPackages = () => {
                 value={text}
                 placeholder="Type something..."
               /> */}
-
+              {/* 
               <View style={styles.buttonContainer}>
                 <IconButton
                   icon="delete"
                   color="red"
                   size={24}
                   onPress={(handleDeletePackage)}
-                />
+                /> */}
 
-                <IconButton
-                  icon="pencil"
-                  color="blue"
-                  size={24}
-                  onPress={() => {
-                    setSelectedPackage(pkg);
-                    setPackageName(pkg.packageName);
-                    setPackageDescription(pkg.packageDescription);
-                    setPackagePrice(pkg.packagePrice);
-                    setModalVisible(true);
-                  }}
-                />
-              </View>
+              <TouchableOpacity
+
+                style={styles.paymentbutton}
+                onPress={() => {
+                  setSelectedPackage(pkg);
+                  setPackageName(pkg.packageName);
+                  setPackageDescription(pkg.packageDescription);
+                  setPackagePrice(pkg.packagePrice);
+                  setPaymentAmount(pkg.paymentAmount);
+                  setPaymentDate(pkg.paymentDate);
+                  setPaymentStatus(pkg.paymentStatus);
+                  setModalVisible(true);
+                }}
+              >
+
+                <Text style={styles.buttonText}>Add Payment Details</Text>
+
+              </TouchableOpacity>
+
+
 
             </View>
 
@@ -304,38 +378,91 @@ const ViewPackages = () => {
         </ScrollView>
         <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
           <View style={styles.modalContainer}>
-            <Text style={styles.title}>Upadate Package Details</Text>
+            <Text style={styles.title}>Payments For Packages</Text>
             <Text style={styles.packageName}>{selectedPackage?.packageName}</Text>
             {/* <Text style={styles.packageDescription}>{selectedPackage?.packageDescription}</Text>
           <Text style={styles.packagePrice}> {selectedPackage?.packagePrice}</Text> */}
-            <Text>Enter Package Name</Text>
+            <Text>Package Name</Text>
+
             <TextInput
-              label="Package Name"
+              // label="Package Name"
               value={packageName}
               onChangeText={setPackageName}
               style={styles.input}
             />
-            <Text>Enter Package Description</Text>
+            {/* <Text>Enter Package Description</Text>
             <TextInput
               label="Package Description"
               value={packageDescription}
               onChangeText={setPackageDescription}
               style={styles.descriptionInput}
-            />
-            <Text>Enter Package Price</Text>
+            /> */}
+            <Text>Package Price</Text>
             <TextInput
-              label="Package Price"
+              // label="Package Price"
               value={packagePrice}
               onChangeText={setPackagePrice}
               keyboardType="numeric"
               style={styles.input}
             />
+            <Text>Payment Amount</Text>
+            <TextInput
+              // label="Package Price"
+              value={paymentAmount}
+              onChangeText={setPaymentAmount}
+              keyboardType="numeric"
+              style={styles.input}
+            />
+            <Text>Payment Date</Text>
+
+            {/* <TextInput
+              style={styles.input}
+              value={date.toDateString()}
+              onFocus={() => setShowDatePicker(true)}
+            />
+            {showDatePicker && (
+              <DatePickerIOS
+                date={date}
+                onDateChange={handleDateChange}
+                mode='date'
+              />
+            )} */}
+            <TextInput
+              // label="Package Price"
+              value={paymentDate}
+              onChangeText={setPaymentDate}
+              // keyboardType="numeric"
+              style={styles.input}
+            />
+            <Text>Payment Status</Text>
+
+            <Picker
+              selectedValue={paymentStatus}
+              style={styles.picker}
+              onValueChange={(value) => setPaymentStatus(value)}
+            >
+              <Picker.Item label="Select Payment Status" value="" />
+
+              <Picker.Item label="Advance Payment Done" value="Advance Payment Done" />
+              <Picker.Item label="Three-quarters Payment Done" value="Three-quarters Payment Done" />
+              <Picker.Item label="Half Payment Done" value="Half Payment Done" />
+              <Picker.Item label="Payment Done" value="Payment Done" />
+
+
+            </Picker>
+            {/* <TextInput
+              // label="Package Price"
+              value={paymentStatus}
+              onChangeText={setPaymentStatus}
+              // keyboardType="numeric"
+              style={styles.input}
+            /> */}
             <View style={styles.buttonContainer}>
               <Button mode="contained" onPress={() => setModalVisible(false)} style={styles.button}>
                 Cancel
               </Button>
               <Button mode="contained" onPress={handleUpdatePackage} style={styles.button}>
-                Update
+                Add Payment Details
               </Button>
             </View>
           </View>
@@ -356,5 +483,5 @@ const ViewPackages = () => {
   );
 };
 
-export default ViewPackages;
+export default PackageDetails;
 

@@ -21,6 +21,10 @@ import ViewPackages from './Screen/Packages_Management/ViewPackages';
 
 import MoreDetails from './Screen/Packages_Management/MoreDetails';
 
+import PackageDetails from './Screen/Packages_Management/PackageDetails';
+
+import ViewPayment from './Screen/Packages_Management/ViewPayment';
+
 
 //guest list management
 import ViewGuestList from './Screen/GuestList_Management/ViewGuestList';
@@ -86,18 +90,21 @@ export default function App() {
 
 
 
-        <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ headerShown: true, title: "Package Home " }} />
-        <Stack.Screen name='ViewPackages' component={ViewPackages} options={{ headerShown: true, title: "Packages View" }} />
-        <Stack.Screen name='AddPackages' component={AddPackages} options={{ headerShown: true, title: "Add Packages" }} />
+        <Stack.Screen name='PackageHomePage' component={PackageHomePage} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='ViewPackages' component={ViewPackages}  options={{ header: () => <EventHeader /> }}  />
+        <Stack.Screen name='AddPackages' component={AddPackages} options={{ header: () => <EventHeader /> }} />
         <Stack.Screen name='MoreDetails' component={MoreDetails} options={{ headerShown: true, title: "More Details" }} />
+        <Stack.Screen name='PackageDetails' component={PackageDetails} options={{ header: () => <EventHeader /> }} />
+        <Stack.Screen name='ViewPayment' component={ViewPayment} options={{ header: () => <EventHeader /> }} />
+        
 
         <Stack.Screen name='ViewGuestList'component={ViewGuestList} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='GuestListHome'component={GuestListHome} options={{ headerShown: true , title:"Guest List Home" }}/>
         <Stack.Screen name='AddGuestList'component={AddGuestList} options={{ headerShown: true , title:"Add Guest List" }}/>
 
         <Stack.Screen name='Home' component={EventHomeScreen} options={{ header: (navigation) => <EventHeader {...navigation}/> }} />
-        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Events" }}/>
-        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Events" }}/>
+        <Stack.Screen name='AddEvents'component={AddEvents} options={{ headerShown: true , title:"Add Event" }}/>
+        <Stack.Screen name='UpdateEvent'component={UpdateEvent} options={{ headerShown: true , title:"Update Event" }}/>
 
         <Stack.Screen name='InvitationHome' component={InvitationHome} options={{ headerShown: true , title:"Event Invitations" }} />
         <Stack.Screen name='AddInvitation'component={AddInvitation} options={{ headerShown: true , title:"Add Invitation" }}/>
