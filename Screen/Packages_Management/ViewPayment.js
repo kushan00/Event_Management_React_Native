@@ -117,7 +117,7 @@ const PackageDetails = () => {
             // marginTop: 46,
         },
         packageName: {
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: 'bold',
             marginBottom: 8,
             color: 'black',
@@ -129,8 +129,8 @@ const PackageDetails = () => {
             fontWeight: 'bold',
         },
         packagePrice: {
-            fontSize: 18,
-            fontWeight: 'bold',
+            fontSize: 14,
+            //fontWeight: 'bold',
             color: '#7A1212',
             // textAlign: 'right',
         },
@@ -270,7 +270,7 @@ const PackageDetails = () => {
 
             >
 
-                <Text style={styles.packagePrice1}>Add Payment Details To Relevant Package</Text>
+                <Text style={styles.packagePrice1}>View Payment Details Of Package</Text>
 
                 <ScrollView>
 

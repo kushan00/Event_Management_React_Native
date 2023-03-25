@@ -126,6 +126,17 @@ const PackageDetails = () => {
 
       // marginTop: 46,
     },
+    packageBoxSelect: {
+      backgroundColor: 'purple',
+      padding: 10,
+      marginBottom: 16,
+      borderRadius: 8,
+      borderColor: 'black',
+      borderWidth: 1,
+      elevation: 4,
+
+      // marginTop: 46,
+    },
     packageName: {
       fontSize: 20,
       fontWeight: 'bold',
@@ -325,7 +336,8 @@ const PackageDetails = () => {
 
             <View
               key={pkg.id}
-              style={styles.packageBox}
+              style={[styles.packageBox,                
+                  selectedPackage && selectedPackage.packageName == pkg.packageName  ?  styles.packageBoxSelect : null]}
               onTouchEnd={() => setSelectedPackage(pkg)}
 
             >

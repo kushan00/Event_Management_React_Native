@@ -109,17 +109,30 @@ const ViewPackages = () => {
 
       // marginTop: 46,
     },
+    packageBoxSelect: {
+      backgroundColor: 'purple',
+      padding: 10,
+      marginBottom: 16,
+      borderRadius: 8,
+      borderColor: 'black',
+      borderWidth: 1,
+      elevation: 4,
+
+      // marginTop: 46,
+    },
     packageName: {
       fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 8,
       color: '#3D0B66',
-      textDecorationLine: 'underline',
+      //textDecorationLine: 'underline',
+      textAlign: 'center'
     },
     packageDescription: {
       fontSize: 16,
       marginBottom: 8,
-      fontWeight: 'bold',
+      
+      //fontWeight: 'bold',
     },
     packagePrice: {
       fontSize: 18,
@@ -259,7 +272,8 @@ const ViewPackages = () => {
 
             <View
               key={pkg.id}
-              style={styles.packageBox}
+              style={[styles.packageBox ,
+                selectedPackage && selectedPackage.packageName == pkg.packageName  ?  styles.packageBoxSelect : null]}
               onTouchEnd={() => setSelectedPackage(pkg)}
 
             >
