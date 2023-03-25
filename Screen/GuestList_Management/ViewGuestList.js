@@ -88,6 +88,15 @@ const handleDeleteGuest = () => {
       borderWidth: 1,
       elevation: 4,
     },
+    guestListBoxselected: {
+      backgroundColor: 'pink',
+      padding: 10,
+      marginBottom: 16,
+      borderRadius: 8,
+      borderColor: 'black',
+      borderWidth: 1,
+      elevation: 4,
+    },
     fieldContainer: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -170,7 +179,8 @@ style={styles.container}
       {guests.map((guest) => (
         <View
           key={guest.id}
-          style={styles.guestListBox}
+          style={[styles.guestListBox,            
+              selectedGuest && selectedGuest.guestName == guest.guestName  ?  styles.guestListBoxselected : null]}
           onTouchEnd={() => setSelectedGuest(guest)}
         >
          <View style={styles.fieldContainer}>
