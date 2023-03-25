@@ -53,38 +53,43 @@ const AddGuestList = ({route}) => {
     return (
         <ScrollView>       
             <View style={styles.container}>
+            <Text style={styles.label}>Name:</Text>
             <TextInput
-                placeholder="Guest Name"
+                placeholder="Name"
                 value={guestName}
                 onChangeText={setGuestName}
                 style={styles.input}
                 />
+                <Text style={styles.label}>Email</Text>
                 <TextInput
-                placeholder="Guest Email"
+                placeholder="Email"
                 value={guestEmail}
                 onChangeText={setGuestEmail}
                 style={styles.input}
                 />
+                <Text style={styles.label}>Mobile Number</Text>
                 <TextInput
-                placeholder="Guest Mobile Number"
+                placeholder="Mobile Number"
                 value={guestMobileNumber}
                 onChangeText={setGuestMobileNumber}
                 keyboardType='numeric'
                 style={styles.input}
                 />
+                <Text style={styles.label}>Age</Text>
                 <TextInput
-                placeholder="Guest Age"
+                placeholder="Age"
                 value={guestAge}
                 keyboardType='numeric'
                 onChangeText={setGuestAge}
                 style={styles.input}
                 />
+                <Text style={styles.label}>NIC</Text>
                 <TextInput
-                placeholder="Guest NIC"
+                placeholder="NIC"
                 value={guestNic}
                 onChangeText={setGuestNic}
                 style={styles.input}
-                />
+                />                
                 {/* <TextInput
                 placeholder="Guest Gender"
                 value={guestGender}
@@ -139,8 +144,16 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 16,
         backgroundColor: 'white',
-        height: 80,
+        height: 50,
     },
+
+    label: {
+        marginRight: 10,
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#333',
+      },
+
     descriptionInput: {
         borderWidth: 1,
         borderColor: '#ccc',

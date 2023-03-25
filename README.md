@@ -1,30 +1,22 @@
 # Event_Management_React_Native
 
 
-Guest List Management: Hivindu
+## Member List
 
-Create: Allow users to add guests to the guest list. (insert guest -  name , email , number , age , nic , gender)
-Read: Allow users to view the list of guests and their details. (view guest list)
-Update: Allow users to edit and update the details of guests on the list.
-Delete: Allow users to remove guests from the list.
+### De Silva W.K.D : IT20278144
+### Punsith K.H.A.H : IT20222390
 
-Invitation Management: Dima
+### Prabodhika Damayanthi H.D.N : IT20263744 
+### Perera K.R.A : IT20243012
 
-Create: Allow users to create and send invitations to guests.(insert invitation details - select multiple guests from the list , event_id , status (sent - false / true) )
-Read: Allow users to view the list of invitations sent and their status. (view invitation list )
-Update: Allow users to resend invitations or update invitation details. (update name list )
-Delete: Allow users to cancel invitations.
 
-Package Management: Nethmi
+## Components
 
-Create: Allow users to create an select packages.(security , food , entertainment)
-Read: Allow users to view the list of pakcages and their status.
-Update: Allow users to update the packages status and change packages.
-Delete: Allow users to remove packages.
+### Invitation Management: De Silva W.K.D : IT20278144
 
-Event Planning: Ramith
+### Guest List Management: Punsith K.H.A.H : IT20222390
 
-Create: Allow users to create events and add event details. (insert basic things - name , id , user_id , venue, description , time, date , event_type)
-Read: Allow users to view the list of events and their details.(display list -  add guests / send invitation / add packages)
-Update: Allow users to edit and update event details.
-Delete: Allow users to delete events.
+### Package Management: Prabodhika Damayanthi H.D.N : IT20263744 
+
+### Event Planning: Perera K.R.A : IT20243012
+
