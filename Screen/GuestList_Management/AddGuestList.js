@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from "@react-native-picker/picker";
 
-const AddGuestList = ({route}) => {
-    const  event  = route.params.event;
+const AddGuestList = () => {
+    //const  event  = route.params.event;
     
     const [guestName, setGuestName] = useState('');
     const [guestEmail, setGuestEmail] = useState('');
@@ -18,7 +18,7 @@ const AddGuestList = ({route}) => {
     const navigation = useNavigation();
 
     const handleSave = async () => {
-        console.log("event", event);
+        //console.log("event", event);
         try {
             await firebase.firestore().collection('guests').add({
                 guestName,
@@ -27,7 +27,7 @@ const AddGuestList = ({route}) => {
                 guestAge,
                 guestNic,
                 guestGender,
-                EventId: event?.id,   
+                //EventId: event?.id,   
                 user_id: await AsyncStorage.getItem("uid") != null
                 ? await AsyncStorage.getItem("uid")
                 : "no user id",            
