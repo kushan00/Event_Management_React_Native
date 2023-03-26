@@ -56,7 +56,7 @@ const EventHomeScreen = () => {
     });
     return unsubscribe;
   }, []);
-
+//IT 2022 2390
   const invitationViewPage = (selectedEvent2) => {
     navigation.navigate("InvitationHome", { event: selectedEvent2 });
   };
@@ -65,7 +65,7 @@ const EventHomeScreen = () => {
     navigation.navigate("GuestListHome", { event: selectedEvent });
   };
   const PackageHomePage = () => {
-    navigation.navigate("PackageHomePage");
+    navigation.navigate("PackageHomePage", { event: selectedEvent });
   };
 
   const handleEventPress = (event) => {
@@ -106,7 +106,7 @@ const EventHomeScreen = () => {
 
   const addEvent = () => {
     console.log("Add Event");
-    navigation.navigate("AddEvents");
+    navigation.navigate("AddEvents", { event: selectedEvent });
   };
 
   return (

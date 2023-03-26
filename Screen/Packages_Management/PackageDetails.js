@@ -424,6 +424,7 @@ const PackageDetails = () => {
               onChangeText={setPaymentAmount}
               keyboardType="numeric"
               style={styles.input}
+              
             />
             <Text>Payment Date</Text>
 
@@ -443,7 +444,7 @@ const PackageDetails = () => {
               // label="Package Price"
               value={paymentDate}
               onChangeText={setPaymentDate}
-              // keyboardType="numeric"
+                keyboardType="numeric"
               style={styles.input}
             />
             <Text>Payment Status</Text>
